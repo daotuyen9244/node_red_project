@@ -1,2 +1,12 @@
 https://github.com/FRINXio/node-red-projects
 http://pdacontrolen.com/meter-pzem-004-esp8266-platform-iot-node-red-modbus-tcp-ip/
+http://bitluni.net/how-to-node-red/
+
+https://www.youtube.com/watch?v=7BxkS5iSE0Q // Node-Red Functions
+
+
+
+https://flows.nodered.org/flow/b1d00d13f1db357ac686f9379731060c //Node-Red Complex Water Utility Example (SCADA)
+https://www.youtube.com/watch?v=FCfmWnxQkoc //Node-Red Complex Water Utility Example (SCADA)
+
+https://flows.nodered.org/?num_pages=2
