@@ -10,7 +10,15 @@ https://flows.nodered.org/flow/b1d00d13f1db357ac686f9379731060c //Node-Red Compl
 https://www.youtube.com/watch?v=FCfmWnxQkoc //Node-Red Complex Water Utility Example (SCADA)
 
 https://flows.nodered.org/?num_pages=2
+http://bitluni.net/solar-powered-weather-station/
 
+https://www.youtube.com/watch?v=zRRQCEov-4Q /// mongo db
+https://www.youtube.com/watch?v=kNfP1vw2Img // mongodb
+https://www.youtube.com/watch?v=bI0bQ7pO1kA  // Read and Write Data To a File In Node-Red
+https://www.youtube.com/watch?v=eZUSQ1y6kSM  //Create a Node Red Basic Flow - MQTT Subscribe Example
+https://www.youtube.com/watch?v=YahFRqf-rFA // #128 Node-Red Tricks for Home Automation (JS, Audio, SQlite, Alexa, Mosquitto MQTT etc.)
+http://bitluni.net/2017/09/26/home-automation-series/
+https://www.youtube.com/watch?v=SuoSXVqjyfc // Node-RED + Home Assistant How-To
 
 
 // postgres with C#
