@@ -10,3 +10,15 @@ https://flows.nodered.org/flow/b1d00d13f1db357ac686f9379731060c //Node-Red Compl
 https://www.youtube.com/watch?v=FCfmWnxQkoc //Node-Red Complex Water Utility Example (SCADA)
 
 https://flows.nodered.org/?num_pages=2
+
+
+
+// postgres with C#
+https://www.codeproject.com/Articles/31969/DBCreate-In-Postgres
+http://timoday.edu.vn/lap-trinh-co-so-du-lieu-voi-c/
+
+https://www.youtube.com/watch?v=xdkXJnyPPBs
+http://sinhvienshare.com/share-code-do-an-quan-ly-ban-hang-ma-nguon-c/
+https://www.webtretho.com/forum/f76/source-c-ma-nguon-phan-mem-quan-ly-cua-hang-ban-bang-dia-1906968/
+http://diendan.congdongcviet.com/threads/t395358::full-code-csharp-chia-se-den-cac-thanh-vien.cpp
+http://diendan.congdongcviet.com/forums/f57::du-an-source-code-csharp-asp-net.cpp
