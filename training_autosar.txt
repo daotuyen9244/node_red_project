@@ -1,0 +1,37 @@
+task -> autosar -> static task, static priority 
+- basic
+- extended
+
+task:
+- name
+- priority
+- activation -> same as memory
+- schedule -> 
+- autostart -> 
+- stacksize
+
+TerminateTask() 
+ChainTask(<taskID>)
+activateTask ()
+
+OSEK -> 4 conformance clesses BBC ECC ( basic/Extended conformance class)
+
+Scalabilty class
+
+task hook -> debug
+
+Scheduling polices
+preemptive -> đè task 
+non-preemptive -> task ko cho đè 
+
+interrupts
+interrupt service 
+category 1,2 : 1 -> interrupt hardware (same as normal interrupt), 2-> interrupt of OS
+interrupt priority level :
+single: (0) user -> category 2 -> category 1 
+multi level target: User -> category2 + OS level -> category 1
+
+os interrupt handling
+os latency
+interrupt implementation : diff CAT1 vs CAT2 : CAT2 có luu thông tin => do OS quan ly
+
