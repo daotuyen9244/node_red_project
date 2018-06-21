@@ -35,3 +35,19 @@ os interrupt handling
 os latency
 interrupt implementation : diff CAT1 vs CAT2 : CAT2 có luu thông tin => do OS quan ly
 
+Resource 
+
+concurrency control 
+binary semaphore ( AUTOSAR) => cirtical  section => bao ve 1 doan resource 
+samaphore
+counter samaphore
+mutex
+
+resource 
+standard=> user ,no nessted locking
+linked => user , nessted allow
+internal => os managed
+
+priority inversion => 
+deadlock => khoa cheo
+=> priority celing protocol
