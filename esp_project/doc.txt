@@ -1,0 +1,5 @@
+step 1: open mosquitto.exe
+step 2: create subrice mqtt from ESP
+./mosquitto_sub.exe -d -t outTopic
+step 3: publich data to ESP
+ .\mosquitto_pub.exe -d -t inTopic -m "daotuyen9244!"
