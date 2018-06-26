@@ -7,7 +7,7 @@ https://www.youtube.com/watch?v=7BxkS5iSE0Q // Node-Red Functions
 
 https://www.youtube.com/watch?v=5W6C4psWs-4 // imprehome
 
-https://www.youtube.com/watch?v=fV78MQks6BI // modbus with mqtt
+https://www.youtube.com/watch?v=fV78MQks6BI // modbus with mqtt --------------------------------------------------- using 
 
 
 https://flows.nodered.org/flow/b1d00d13f1db357ac686f9379731060c //Node-Red Complex Water Utility Example (SCADA)
@@ -34,3 +34,16 @@ http://sinhvienshare.com/share-code-do-an-quan-ly-ban-hang-ma-nguon-c/
 https://www.webtretho.com/forum/f76/source-c-ma-nguon-phan-mem-quan-ly-cua-hang-ban-bang-dia-1906968/
 http://diendan.congdongcviet.com/threads/t395358::full-code-csharp-chia-se-den-cac-thanh-vien.cpp
 http://diendan.congdongcviet.com/forums/f57::du-an-source-code-csharp-asp-net.cpp
+
+
+//
+
+https://flows.nodered.org/node/node-red-contrib-modbus /modbus tcp ip
+https://flows.nodered.org/node/node-red-contrib-modbustcp
+
+https://www.youtube.com/watch?v=tO5XB2NGRPc // modbus tcpip control
+
+
+
+https://www.youtube.com/watch?v=Qt3T7ij9qYY // FLASH STM32 
+https://www.youtube.com/watch?v=rVtZEqHrLM0
