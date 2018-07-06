@@ -47,7 +47,7 @@ https://www.youtube.com/watch?v=tO5XB2NGRPc // modbus tcpip control
 
 https://www.youtube.com/watch?v=Qt3T7ij9qYY // FLASH STM32 
 https://www.youtube.com/watch?v=rVtZEqHrLM0
-
+https://www.youtube.com/watch?v=6YOfWkFmf38 // in hoa don c#
 http://vidieukhien.xyz/vi/category/tutorial/stm32/ 
 http://vidieukhien.xyz/vi/category/projects/iot/
 http://vidieukhien.xyz/vi/2018/03/12/mqtt-protocol-packet/
