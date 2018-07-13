@@ -49,6 +49,7 @@ https://www.youtube.com/watch?v=Qt3T7ij9qYY // FLASH STM32
 https://www.youtube.com/watch?v=rVtZEqHrLM0
 https://www.youtube.com/watch?v=6YOfWkFmf38 // in hoa don c#
 https://www.c-sharpcorner.com/article/getting-started-with-mongodb-mongodb-with-c-sharp/ 
+https://duythanhcse.wordpress.com/2018/05/29/bai-5-ket-noi-va-truy-van-du-lieu-mongodb-bang-c/ 
 http://vidieukhien.xyz/vi/category/tutorial/stm32/ 
 http://vidieukhien.xyz/vi/category/projects/iot/
 http://vidieukhien.xyz/vi/2018/03/12/mqtt-protocol-packet/
