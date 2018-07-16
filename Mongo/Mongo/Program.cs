@@ -13,68 +13,89 @@ namespace Mongo {
     //private static 
 
     static void Main(string[] args) {
-      #region connect DB
-
-      string connectionString = "Server=localhost:27017";
-      Console.WriteLine("Connecting MongoDB");
-      MongoClient client = new MongoClient(connectionString);
-      MongoServer server = client.GetServer();
-      MongoDatabase mongoDatabase = server.GetDatabase("myDB");
-
-      Console.WriteLine("Successfully  connected to MongoDB: " + mongoDatabase.Name);
-      Console.WriteLine("-----------------------------");
-
-      #endregion
-
-      #region Get States
-      MongoCollection<BsonDocument> states = ReadState(mongoDatabase);
-      Console.WriteLine("States as Bson object : ----");
-      foreach (BsonDocument state in states.FindAll()) {
-        Console.WriteLine(state.AsBsonDocument);
-      }
-      Console.WriteLine("-----------------------------");
-      Console.WriteLine("States name as list : ----");
-      foreach (BsonDocument state in states.FindAll()) {
-        Console.WriteLine(state["Name"]);
-      }
-      #endregion
+            #region connect DB
+            try
+            {
 
 
-      #region Get States As domain classes
-      MongoCollection<State> statesDomain = ReadStateAsDomain(mongoDatabase);
-      Console.WriteLine("States using Domain object : ----");
-      foreach (State state in statesDomain.FindAll()) {
-        Console.WriteLine(state.Name);
-      }     
-      #endregion
+                string connectionString = "Server=localhost:27017";
+                Console.WriteLine("Connecting MongoDB");
+                MongoClient client = new MongoClient(connectionString);
+                MongoServer server = client.GetServer();
+                MongoDatabase mongoDatabase = server.GetDatabase("myDB");
 
-      #region Get Capitals
-      MongoCollection<BsonDocument> capitals = ReadCapital(mongoDatabase);
-      Console.WriteLine("Capital List : ----");
-      foreach (BsonDocument capital in capitals.FindAll()) {
-        Console.WriteLine("capital :" + capital["Name"] + " ---- State : " + capital["State"]);
-      }
+                Console.WriteLine("Successfully  connected to MongoDB: " + mongoDatabase.Name);
+                Console.WriteLine("-----------------------------");
 
-      #endregion
+                #endregion
 
-      #region Create new State
-      #endregion
+                #region Get States
+                try
+                {
+                    new MongoClient("mongodb://localhost:27017").GetServer().Ping();
+                    MongoCollection<BsonDocument> states = ReadState(mongoDatabase);
+                    Console.WriteLine("States as Bson object : ----");
+                    foreach (BsonDocument state in states.FindAll())
+                    {
+                        Console.WriteLine(state.AsBsonDocument);
+                    }
+                    Console.WriteLine("-----------------------------");
+                    Console.WriteLine("States name as list : ----");
+                    foreach (BsonDocument state in states.FindAll())
+                    {
+                        Console.WriteLine(state["Name"]);
+                    }
+                    #endregion
 
-      #region Update Capital
-      //Console.WriteLine("Enter state name which need to be updated in Capital collection");
-      //string oldName = Console.ReadLine();
-      //Console.WriteLine("Enter new state name which need to be set in Capital collection");
-      //string newName = Console.ReadLine();
-      //MongoCollection<BsonDocument> capitals = UpdateCapital(mongoDatabase,oldName,newName);
-      //  Console.WriteLine("Capital List : ----");
-      //foreach (BsonDocument capital in capitals.FindAll()) {
-      //  Console.WriteLine("capital :" + capital["Name"] + " ---- State : " + capital["State"]);
-      //}
-      #endregion
 
-      #region Delete State
-      #endregion
+                    #region Get States As domain classes
+                    MongoCollection<State> statesDomain = ReadStateAsDomain(mongoDatabase);
+                    Console.WriteLine("States using Domain object : ----");
+                    foreach (State state in statesDomain.FindAll())
+                    {
+                        Console.WriteLine(state.Name);
+                    }
+                    #endregion
 
+                    #region Get Capitals
+                    MongoCollection<BsonDocument> capitals = ReadCapital(mongoDatabase);
+                    Console.WriteLine("Capital List : ----");
+                    foreach (BsonDocument capital in capitals.FindAll())
+                    {
+                        Console.WriteLine("capital :" + capital["Name"] + " ---- State : " + capital["State"]);
+                    }
+
+                    #endregion
+
+                    #region Create new State
+                    #endregion
+
+                    #region Update Capital
+                    //Console.WriteLine("Enter state name which need to be updated in Capital collection");
+                    //string oldName = Console.ReadLine();
+                    //Console.WriteLine("Enter new state name which need to be set in Capital collection");
+                    //string newName = Console.ReadLine();
+                    //MongoCollection<BsonDocument> capitals = UpdateCapital(mongoDatabase,oldName,newName);
+                    //  Console.WriteLine("Capital List : ----");
+                    //foreach (BsonDocument capital in capitals.FindAll()) {
+                    //  Console.WriteLine("capital :" + capital["Name"] + " ---- State : " + capital["State"]);
+                    //}
+                    #endregion
+
+                    #region Delete State
+                    #endregion
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("fail  connected to MongoDB");
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Failed connect to mongodb");
+            }
 
       Console.ReadLine();
     }

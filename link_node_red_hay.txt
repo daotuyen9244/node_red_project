@@ -54,3 +54,4 @@ http://vidieukhien.xyz/vi/category/tutorial/stm32/
 http://vidieukhien.xyz/vi/category/projects/iot/
 http://vidieukhien.xyz/vi/2018/03/12/mqtt-protocol-packet/
 http://vidieukhien.xyz/vi/2018/03/13/tutxay-dung-he-thong-dinh-vi-gps-thoi-gian-thuc-voi-firebase-database-polymer-web-components/
+https://github.com/akospasztor/stm32-bootloader
