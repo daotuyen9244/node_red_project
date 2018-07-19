@@ -50,6 +50,7 @@ https://www.youtube.com/watch?v=rVtZEqHrLM0
 https://www.youtube.com/watch?v=6YOfWkFmf38 // in hoa don c#
 https://www.c-sharpcorner.com/article/getting-started-with-mongodb-mongodb-with-c-sharp/ 
 https://duythanhcse.wordpress.com/2018/05/29/bai-5-ket-noi-va-truy-van-du-lieu-mongodb-bang-c/ 
+https://www.codementor.io/pmbanugo/working-with-mongodb-in-net-1-basics-g4frivcvz
 http://vidieukhien.xyz/vi/category/tutorial/stm32/ 
 http://vidieukhien.xyz/vi/category/projects/iot/
 http://vidieukhien.xyz/vi/2018/03/12/mqtt-protocol-packet/
@@ -57,3 +58,6 @@ http://vidieukhien.xyz/vi/2018/03/13/tutxay-dung-he-thong-dinh-vi-gps-thoi-gian-
 https://github.com/akospasztor/stm32-bootloader
 https://github.com/thomasfredericks/Slip // arduino slip protocol
 https://drive.google.com/file/d/1BK4aZEnOnCo_pLyn8sipYw624DlD0t6B/view // tool chup hinh va comment
+
+https://kipalog.com/posts/Nhung-gi-ban-can-biet-ve-monitoring-elasticsearch
+https://adminvl.com/threads/c%C3%A0i-%C4%91%E1%BA%B7t-v%C3%A0-c%E1%BA%A5u-h%C3%ACnh-h%E1%BB%87-th%E1%BB%91ng-monitor-v%E1%BB%9Bi-grafana-influxdb-v%C3%A0-collectd-agent.33/
