@@ -18,7 +18,9 @@ namespace test_form_with_mongodb
 {
     public partial class Form1 : Form
     {
-       
+        MongoServer _server;
+        MongoDatabase _database;
+        MongoCollection _collection;
         public Form1()
         {
             InitializeComponent();
@@ -26,70 +28,86 @@ namespace test_form_with_mongodb
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+            string connection = "mongodb://localhost:27017";
+            //string connection = ConfigurationSettings.AppSettings["Connection"];
+
+            _server = MongoServer.Create(connection);
+            _database = _server.GetDatabase("PowerDAQ", SafeMode.True);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var client = new MongoClient();
-
-            IMongoDatabase db = client.GetDatabase("schoool");
-
-            var collection = db.GetCollection<Student>("students");
-            /*var newStudents = CreateNewStudents();
-
-             collection.InsertManyAsync(newStudents);*/
-            try
-            {
-                new MongoClient("mongodb://localhost:27017").GetServer().Ping();
-                MongoCollection<BsonDocument> states = ReadState(client);
-                Console.WriteLine("States as Bson object : ----");
-            }
-            catch (Exception ex)
-            {
-
-            }
-            }
-        private static IEnumerable<Student> CreateNewStudents()
-        {
-            var student1 = new Student
-            {
-                FirstName = "Gregor dao tuyen",
-                LastName = "Felix",
-                Subjects = new List<string>() { "English", "Mathematics", "Physics", "Biology" },
-                Class = "JSS 3",
-                Age = 23
-            };
-
-            var student2 = new Student
-            {
-                FirstName = "Machiko",
-                LastName = "Elkberg",
-                Subjects = new List<string> { "English", "Mathematics", "Spanish" },
-                Class = "JSS 3",
-                Age = 23
-            };
-
-            var student3 = new Student
-            {
-                FirstName = "Julie",
-                LastName = "Sandal",
-                Subjects = new List<string> { "English", "Mathematics", "Physics", "Chemistry" },
-                Class = "JSS 1",
-                Age = 25
-            };
-
-            var newStudents = new List<Student> { student1, student2, student3 };
-
-            return newStudents;
+            var _users = _database.GetCollection<Station>("PowerCollection");
+            var user = new Station { };
+            user.Id_station = "1";
+            user.Data = "5665";
+            user.Date = "20";
+            user.Month = "7";
+            user.Year = "2018";
+            //user.Age = Convert.ToInt32(txtAge.Text);
+            //user.Name = txtName.Text;
+            //user.Location = txtLocation.Text;
+            _users.Insert(user);
+            var id = user.Id_station;
         }
-        internal class Student
+        
+
+        
+        public class Station
         {
-            public string FirstName { get; set; }
-            public string LastName { get; set; }
-            public string Class { get; set; }
-            public int Age { get; set; }
-            public IEnumerable<string> Subjects { get; set; }
+            public ObjectId Id { get; set; }
+
+            public string Id_station { get; set; }
+
+            public string Data { get; set; }
+
+            public string OldData { get; set; }
+
+            public string Date { get; set; }
+
+            public string Month { get; set; }
+
+            public string Year { get; set; }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            _collection = _database.GetCollection<Station>("PowerCollection");
+            IMongoQuery query = Query.EQ("Id_station", "1");
+            Station _user = _collection.FindAs<Station>(query).FirstOrDefault();
+            if (_user != null)
+            {
+                MessageBox.Show(_user.Data.ToString());
+            }
+            else
+            {
+                MessageBox.Show("Not able to find any results with name " );
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+             
+            _collection = _database.GetCollection<Station>("PowerCollection");
+            IMongoQuery query = Query.EQ("Id_station", "1");
+            Station _user = _collection.FindAs<Station>(query).FirstOrDefault();
+            UInt32 datatotal = 0;
+            _user.OldData = _user.Data;
+            datatotal = UInt32.Parse(_user.OldData);
+            datatotal = datatotal * 10;
+            _user.Data = datatotal.ToString();
+            _collection.Save(_user);
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            _collection = _database.GetCollection<Station>("PowerCollection");
+            IMongoQuery query = Query.EQ("Id_station", "1");
+            Station _user = _collection.FindAs<Station>(query).FirstOrDefault();
+            _user.OldData ="1";
+            _user.Data = "1";
+            _collection.Save(_user);
         }
     }
 }
