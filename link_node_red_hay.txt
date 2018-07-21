@@ -63,3 +63,6 @@ https://drive.google.com/file/d/1BK4aZEnOnCo_pLyn8sipYw624DlD0t6B/view // tool c
 
 https://kipalog.com/posts/Nhung-gi-ban-can-biet-ve-monitoring-elasticsearch
 https://adminvl.com/threads/c%C3%A0i-%C4%91%E1%BA%B7t-v%C3%A0-c%E1%BA%A5u-h%C3%ACnh-h%E1%BB%87-th%E1%BB%91ng-monitor-v%E1%BB%9Bi-grafana-influxdb-v%C3%A0-collectd-agent.33/
+
+https://github.com/csnol/1CHIP-Programmers
+https://www.youtube.com/watch?v=17NQFhN0byw
