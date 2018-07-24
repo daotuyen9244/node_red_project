@@ -68,3 +68,4 @@ https://github.com/csnol/1CHIP-Programmers
 https://www.youtube.com/watch?v=17NQFhN0byw
 
 https://github.com/RRPRIME/STM32 // flash for 25q32 => un test
+http://skproj.ru/programmator-spi-flash-svoimi-rukami/ 
