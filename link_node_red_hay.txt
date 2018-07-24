@@ -66,3 +66,5 @@ https://adminvl.com/threads/c%C3%A0i-%C4%91%E1%BA%B7t-v%C3%A0-c%E1%BA%A5u-h%C3%A
 
 https://github.com/csnol/1CHIP-Programmers
 https://www.youtube.com/watch?v=17NQFhN0byw
+
+https://github.com/RRPRIME/STM32 // flash for 25q32 => un test
