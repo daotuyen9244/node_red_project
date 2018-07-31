@@ -78,3 +78,6 @@ http://csharp.net-informations.com/excel/files/download/csharp-excel-export_down
 
 https://o7planning.org/vi/10279/import-va-export-co-so-du-lieu-mongodb
 
+https://www.c-sharpcorner.com/UploadFile/hrojasara/export-datagridview-to-excel-in-C-Sharp/
+http://diendan.congdongcviet.com/threads/t38156::export-datatable-to-excel-with-format-in-csharp.cpp
+https://toidicodedao.com/2015/11/24/series-c-hay-ho-epplus-thu-vien-excel-ba-dao-phan-1/
