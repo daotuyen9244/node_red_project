@@ -85,3 +85,5 @@ https://toidicodedao.com/2015/11/24/series-c-hay-ho-epplus-thu-vien-excel-ba-dao
 https://www.gemboxsoftware.com/spreadsheet/examples/c-sharp-vb-net-create-excel-chart/301
 
 https://www.codeproject.com/Articles/21913/TeboScreen-Basic-C-Screen-Capture-Application
+/////
+http://www.iotsharing.com/2017/09/arduino-esp32-freertos-tutorials.html
