@@ -87,3 +87,4 @@ https://www.gemboxsoftware.com/spreadsheet/examples/c-sharp-vb-net-create-excel-
 https://www.codeproject.com/Articles/21913/TeboScreen-Basic-C-Screen-Capture-Application
 /////
 http://www.iotsharing.com/2017/09/arduino-esp32-freertos-tutorials.html
+https://exploreembedded.com/wiki/index.php?title=1.%20Creating%20and%20using%20a%20task
