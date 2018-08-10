@@ -88,3 +88,5 @@ https://www.codeproject.com/Articles/21913/TeboScreen-Basic-C-Screen-Capture-App
 /////
 http://www.iotsharing.com/2017/09/arduino-esp32-freertos-tutorials.html
 https://exploreembedded.com/wiki/index.php?title=1.%20Creating%20and%20using%20a%20task
+https://github.com/kowalski100/FreeRTOS-STM32-HAL-Examples
+https://docs.aws.amazon.com/freertos/latest/userguide/getting_started_espressif.html
