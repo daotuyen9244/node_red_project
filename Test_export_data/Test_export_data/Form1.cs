@@ -104,32 +104,41 @@ namespace Test_export_data
                 // Create a file to write to.
                 using (StreamWriter sw = File.CreateText(path))
                 {
-                    for (UInt64 dd = 0; dd < 31; dd++)
+                    for (UInt64 dd = 0; dd < 32; dd++)
                     {
-                        
-                        if (dd == 30)
+                        if (dd == 0)
                         {
-                            sw.Write("Day 31 ");
+                            sw.Write( ",");
+                        }
+                        else if (dd == 31)
+                        {
+                            sw.WriteLine("Day 31 ");
                         }
                         else
                         {
-                            sw.Write("Day " + (dd + 1) + ",");
+                            sw.Write("Day " + (dd ) + ",");
                         }
                     }
                     for (UInt64 dm = 0; dm < 12; dm++)
                     {
-                        for (UInt64 dd = 0; dd < 31; dd++)
+                        
+                        for (UInt64 dd = 0; dd < 32; dd++)
                         {
-                            sw.Write(my_data1[0].Data[dd,dm] + ",");
-                            if(dd == 30)
+
+                            if (dd == 0)
                             {
-                                sw.WriteLine(my_data1[0].Data[dd, dm]);
+                                sw.Write("Thang " + (dm+1) +",");
+                            }
+                            else if (dd == 31)
+                            {
+                                sw.WriteLine(my_data1[0].Data[dd-1, dm]);
                             }
                             else
                             {
-                                sw.Write(my_data1[0].Data[dd, dm] + ",");
+                                sw.Write(my_data1[0].Data[dd-1, dm] + ",");
                             }
                         }
+                        
                     }
                 }
             }
