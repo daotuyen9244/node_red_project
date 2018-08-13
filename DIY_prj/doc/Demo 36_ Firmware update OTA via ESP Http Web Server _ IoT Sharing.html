@@ -1,0 +1,2751 @@
+<!DOCTYPE html>
+<!-- saved from url=(0081)http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html -->
+<html dir="ltr" lang="en-US" xmlns="http://www.w3.org/1999/xhtml" xmlns:b="http://www.google.com/2005/gml/b" xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.com/2005/gml/expr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/3957297643-widget_css_bundle.css" rel="stylesheet" type="text/css">
+
+<meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+
+<meta content="blogger" name="generator">
+<link href="http://www.iotsharing.com/favicon.ico" rel="icon" type="image/x-icon">
+<link href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html" rel="canonical">
+<link rel="alternate" type="application/atom+xml" title="IoT Sharing - Atom" href="http://www.iotsharing.com/feeds/posts/default">
+<link rel="alternate" type="application/rss+xml" title="IoT Sharing - RSS" href="http://www.iotsharing.com/feeds/posts/default?alt=rss">
+<link rel="service.post" type="application/atom+xml" title="IoT Sharing - Atom" href="https://www.blogger.com/feeds/7549705215513488945/posts/default">
+
+<link rel="alternate" type="application/atom+xml" title="IoT Sharing - Atom" href="http://www.iotsharing.com/feeds/1891669169864780233/comments/default">
+<!--Can't find substitution for tag [blog.ieCssRetrofitLinks]-->
+<link href="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/esp32wota.png" rel="image_src">
+<meta content="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html" property="og:url">
+<meta content="Demo 36: Firmware update OTA via ESP Http Web Server" property="og:title">
+<meta content="This is a place where I can share my knowledge of: IoT, machine learning self learning and other interetsing topics." property="og:description">
+<meta content="https://4.bp.blogspot.com/-VqeyOEv438M/WhQitKb5A_I/AAAAAAAAFs8/6LhPYW9uk6MQNOab47wil49GjO9vXDvIwCLcBGAs/w1200-h630-p-k-no-nu/esp32wota.png" property="og:image">
+<!--[if IE]> <script> (function() { var html5 = ("abbr,article,aside,audio,canvas,datalist,details," + "figure,footer,header,hgroup,mark,menu,meter,nav,output," + "progress,section,time,video").split(','); for (var i = 0; i < html5.length; i++) { document.createElement(html5[i]); } try { document.execCommand('BackgroundImageCache', false, true); } catch(e) {} })(); </script> <![endif]-->
+<link href="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/css" rel="stylesheet" type="text/css">
+<link href="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/font-awesome.min.css" rel="stylesheet">
+<title>Demo 36: Firmware update OTA via ESP Http Web Server ~ IoT Sharing</title>
+<!--[if lt IE 9]> <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script> <![endif]-->
+<style id="page-skin-1" type="text/css"><!--
+/*
+-----------------------------------------------
+Blogger Template Style
+Name:   Blogghiamo
+Author: Lasantha Bandara
+URL 1:  http://www.premiumbloggertemplates.com/
+URL 2:  http://www.bloggertipandtrick.net/
+Theme URL: http://www.premiumbloggertemplates.com/blogghiamo-blogger-template/
+Date:   October 2014
+License : GNU General Public License v2 or later
+This template is free for both personal and commercial use, But to satisfy the 'attribution' clause of the license, you are required to keep the footer links intact which provides due credit to its authors.
+----------------------------------------------- */
+body#layout ul{list-style-type:none;list-style:none}
+body#layout ul li{list-style-type:none;list-style:none}
+body#layout #headerbwrap {height:auto;}
+body#layout #content {}
+/* Variable definitions
+====================
+*/
+/* Use this with templates/template-twocol.html */
+.section, .widget {
+margin:0;
+padding:0;
+}
+/*--------------------------------------------------------------
+1.0 Reset
+--------------------------------------------------------------*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+border: 0;
+font-family: inherit;
+font-size: 100%;
+font-style: inherit;
+font-weight: inherit;
+margin: 0;
+outline: 0;
+padding: 0;
+vertical-align: baseline;
+}
+html {
+font-size: 62.5%; /* Corrects text resizing oddly in IE6/7 when body font-size is set using em units http://clagnut.com/blog/348/#c790 */
+overflow-y: scroll; /* Keeps page centered in all browsers regardless of content height */
+-webkit-text-size-adjust: 100%; /* Prevents iOS text size adjust after orientation change, without disabling user zoom */
+-ms-text-size-adjust:     100%; /* www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/ */
+}
+*,
+*:before,
+*:after { /* apply a natural box layout model to all elements; see http://www.paulirish.com/2012/box-sizing-border-box-ftw/ */
+-webkit-box-sizing: border-box; /* Not needed for modern webkit but still used by Blackberry Browser 7.0; see http://caniuse.com/#search=box-sizing */
+-moz-box-sizing:    border-box; /* Still needed for Firefox 28; see http://caniuse.com/#search=box-sizing */
+box-sizing:         border-box;
+}
+body {
+background: #F0F0F0;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+main,
+nav,
+section {
+display: block;
+}
+ol,
+ul {
+list-style: none;
+}
+table { /* tables still need 'cellspacing="0"' in the markup */
+border-collapse: separate;
+border-spacing: 0;
+}
+caption,
+th,
+td {
+font-weight: normal;
+text-align: left;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+content: "";
+}
+blockquote,
+q {
+quotes: "" "";
+}
+a:focus {
+outline: thin dotted;
+}
+a:hover,
+a:active {
+outline: 0;
+}
+a img {
+border: 0;
+}
+/*--------------------------------------------------------------
+2.0 Typography
+--------------------------------------------------------------*/
+body,
+button,
+input,
+select,
+textarea {
+color: #404040;
+font-family: 'Roboto Slab', sans-serif;
+font-size: 15px;
+font-size: 1.5rem;
+line-height: 2;
+}
+.smallpartpbt {
+font-size: 12px;
+font-size: 1.2rem;
+line-height: 1.5;
+text-transform: uppercase;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+clear: both;
+text-rendering: optimizeLegibility;
+line-height: 1.3;
+font-weight: 700;
+}
+h1 {font-size: 33px;}
+h2 {font-size: 25px;}
+h3 {font-size: 20px;}
+h4 {font-size: 18px;}
+h5 {font-size: 13px;}
+h6 {font-size: 10px;}
+p {
+margin-bottom: 1.5em;
+}
+b,
+strong {
+font-weight: bold;
+}
+dfn,
+cite,
+em,
+i {
+font-style: italic;
+}
+blockquote {
+display: block;
+padding: 1.5em 1.5em 1.5em 3.5em;
+margin: 0 0 1.5em;
+position: relative;
+border-left: 5px solid #666666;
+border-right: 2px solid #666666;
+}
+blockquote::before {
+content: "\201C";
+font-size: 60px;
+line-height: 1;
+font-weight: bold;
+position: absolute;
+left: 10px;
+top: 10px;
+}
+address {
+margin: 0 0 1.5em;
+}
+pre {
+background: #eee;
+font-family: "Courier 10 Pitch", Courier, monospace;
+font-size: 15px;
+font-size: 1.5rem;
+line-height: 1.6;
+margin-bottom: 1.6em;
+max-width: 100%;
+overflow: auto;
+padding: 1.6em;
+}
+code,
+kbd,
+tt,
+var {
+font: 15px Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+}
+code {
+display: block;
+background: rgba(0,0,0,.05);
+padding: 0.5em;
+text-align: left;
+border-radius: 2px;
+}
+abbr,
+acronym {
+border-bottom: 1px dotted #666;
+cursor: help;
+}
+mark,
+ins {
+background: #fff9c0;
+text-decoration: none;
+}
+sup,
+sub {
+font-size: 75%;
+height: 0;
+line-height: 0;
+position: relative;
+vertical-align: baseline;
+}
+sup {
+bottom: 1ex;
+}
+sub {
+top: .5ex;
+}
+small {
+font-size: 75%;
+}
+big {
+font-size: 125%;
+}
+/*--------------------------------------------------------------
+3.0 Elements
+--------------------------------------------------------------*/
+hr {
+background-color: #ccc;
+border: 0;
+height: 1px;
+margin-bottom: 1.5em;
+}
+ul,
+ol {
+margin: 0 0 1.5em 3em;
+}
+ul {
+list-style: disc;
+}
+ol {
+list-style: decimal;
+}
+li > ul,
+li > ol {
+margin-bottom: 0;
+margin-left: 1.5em;
+}
+dt {
+font-weight: bold;
+}
+dd {
+margin: 0 1.5em 1.5em;
+}
+img {
+height: auto; /* Make sure images are scaled correctly. */
+max-width: 100%; /* Adhere to container width. */
+}
+figure {
+margin: 0;
+}
+table {
+margin: 0 0 1.5em;
+width: 100%;
+}
+th {
+font-weight: bold;
+}
+/*--------------------------------------------------------------
+4.0 Forms
+--------------------------------------------------------------*/
+button,
+input,
+select,
+textarea {
+font-size: 100%; /* Corrects font size not being inherited in all browsers */
+margin: 0; /* Addresses margins set differently in IE6/7, F3/4, S5, Chrome */
+vertical-align: baseline; /* Improves appearance and consistency in all browsers */
+}
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+outline: none;
+border: 1px solid transparent;
+border-radius: 2px;
+background: #666666;
+color: #ffffff;
+cursor: pointer; /* Improves usability and consistency of cursor style between image-type 'input' and others */
+-webkit-appearance: none; /* Corrects inability to style clickable 'input' types in iOS */
+font-size: 12px;
+font-size: 1.2rem;
+line-height: 1.5;
+text-transform: uppercase;
+padding: 4px 8px;
+-o-transition: all .7s ease-in-out;
+-moz-transition: all .7s ease-in-out;
+-webkit-transition: all .7s ease-in-out;
+transition: all .7s ease-in-out;
+}
+button:hover,
+input[type="button"]:hover,
+input[type="reset"]:hover,
+input[type="submit"]:hover {
+border: 1px solid #666666;
+color: #666666;
+background: transparent;
+-o-transition: all 0s ease-in-out;
+-moz-transition: all 0s ease-in-out;
+-webkit-transition: all 0s ease-in-out;
+transition: all 0s ease-in-out;
+}
+input[type="checkbox"],
+input[type="radio"] {
+padding: 0; /* Addresses excess padding in IE8/9 */
+}
+input[type="search"] {
+-webkit-appearance: none; /* Addresses appearance set to searchfield in S5, Chrome */
+}
+input[type="search"]::-webkit-search-decoration { /* Corrects inner padding displayed oddly in S5, Chrome on OSX */
+-webkit-appearance: none;
+}
+button::-moz-focus-inner,
+input::-moz-focus-inner { /* Corrects inner padding and border displayed oddly in FF3/4 www.sitepen.com/blog/2008/05/14/the-devils-in-the-details-fixing-dojos-toolbar-buttons/ */
+border: 0;
+padding: 0;
+}
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="password"],
+input[type="search"],
+textarea {
+border: 1px solid rgba(0,0,0,.05);
+background: rgba(0,0,0,.05);
+border-radius: 2px;
+outline: none;
+-o-transition: all .7s ease-in-out;
+-moz-transition: all .7s ease-in-out;
+-webkit-transition: all .7s ease-in-out;
+transition: all .7s ease-in-out;
+}
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="password"]:focus,
+input[type="search"]:focus,
+textarea:focus {
+border: 1px solid #666666;
+-o-transition: all 0s ease-in-out;
+-moz-transition: all 0s ease-in-out;
+-webkit-transition: all 0s ease-in-out;
+transition: all 0s ease-in-out;
+}
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="password"],
+input[type="search"] {
+padding: 4px;
+}
+textarea {
+overflow: auto; /* Removes default vertical scrollbar in IE6/7/8/9 */
+padding-left: 4px;
+vertical-align: top; /* Improves readability and alignment in all browsers */
+width: 100%;
+}
+/*--------------------------------------------------------------
+5.0 Navigation
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+5.1 Links
+--------------------------------------------------------------*/
+a {
+color: #404040;
+text-decoration: none;
+-o-transition: all .7s ease-in-out;
+-moz-transition: all .7s ease-in-out;
+-webkit-transition: all .7s ease-in-out;
+transition: all .7s ease-in-out;
+}
+a:hover,
+a:focus,
+a:active {
+color: #666666;
+-o-transition: all 0s ease-in-out;
+-moz-transition: all 0s ease-in-out;
+-webkit-transition: all 0s ease-in-out;
+transition: all 0s ease-in-out;
+}
+/*--------------------------------------------------------------
+5.2 Menus
+--------------------------------------------------------------*/
+.main-navigationpbt {
+clear: both;
+display: block;
+float: left;
+width: 100%;
+background: #666666;
+margin-bottom: 1em;
+}
+.main-navigationpbt ul {
+list-style: none;
+margin: 0;
+padding-left: 0;
+}
+.main-navigationpbt li {
+float: left;
+position: relative;
+}
+.main-navigationpbt li:last-child {
+border-right: 0;
+}
+.main-navigationpbt ul li .indicator {
+position: absolute;
+right: 7px;
+top: 28px;
+font-family: 'FontAwesome';
+font-size: 12px;
+line-height: 1;
+color: #ffffff;
+}
+.main-navigationpbt ul ul li .indicator {
+top: 22px;
+}
+.main-navigationpbt ul li .indicator:before {
+content: "\f0d7";
+}
+.main-navigationpbt ul ul li .indicator:before {
+content: "\f0da";
+}
+.main-navigationpbt a {
+display: block;
+text-decoration: none;
+padding: 2em;
+color: #ffffff;
+-o-transition: all .3s ease-in-out;
+-moz-transition: all .3s ease-in-out;
+-webkit-transition: all .3s ease-in-out;
+transition: all .3s ease-in-out;
+}
+.main-navigationpbt a:hover {
+color: #ffffff;
+}
+.main-navigationpbt ul ul {
+background: #666666;
+float: left;
+position: absolute;
+top: 5.5em;
+left: auto;
+z-index: 99999;
+visibility:hidden;
+opacity:0;
+transition:visibility 0s linear 0.3s,opacity 0.3s linear;
+}
+.main-navigationpbt ul ul ul {
+left: 100%;
+top: 0;
+visibility:hidden;
+opacity:0;
+transition:visibility 0s linear 0.3s,opacity 0.3s linear;
+}
+.main-navigationpbt ul ul a {
+width: 200px;
+padding: 1.5em;
+}
+.main-navigationpbt ul ul li {
+}
+.main-navigationpbt li:hover > a {
+}
+.main-navigationpbt ul ul :hover > a {
+}
+.main-navigationpbt ul ul a:hover {
+}
+.main-navigationpbt ul li:hover > ul {
+visibility:visible;
+opacity:1;
+transition-delay:0s;
+}
+.main-navigationpbt ul ul li:hover > ul {
+visibility:visible;
+opacity:1;
+transition-delay:0s;
+}
+.main-navigationpbt .current_page_item a,
+.main-navigationpbt .current-menu-item a {
+}
+.main-navigationpbt ul li:hover > a, .main-navigationpbt li.current-menu-item > a, .main-navigationpbt li.current-menu-parent > a, .main-navigationpbt li.current-page-ancestor > a, .main-navigationpbt .current_page_item > a {
+background: rgba(0,0,0,.03);
+}
+/* Small menu */
+.menu-togglepbt {
+display: none;
+}
+@media screen and (max-width: 768px) {
+.menu-togglepbt,
+.main-navigationpbt.toggled .nav-menu {
+display: block;
+}
+.main-navigationpbt ul {
+display: none;
+}
+.menu-togglepbt, .main-navigationpbt.toggled .nav-menu {
+display: block;
+width: 100%;
+border-radius: 2px;
+text-align: left;
+float: left;
+padding: 1.5em;
+}
+.main-navigationpbt.toggled .nav-menu {
+padding: 0 1.5em 1.5em;
+}
+.main-navigationpbt.toggled .nav-menu ul {
+display: block;
+left: auto;
+position: relative;
+top: 0;
+border-bottom: 0px;
+padding-left: 5%;
+width: 100%;
+opacity: 1;
+visibility: visible;
+}
+.main-navigationpbt.toggled ul ul a {
+font-size: 100%;
+width: 100%;
+}
+.menu-togglepbt:hover {
+color: #ffffff;
+}
+.menu-togglepbt i {
+float:right;
+}
+.main-navigationpbt li {
+width: 100%;
+}
+.main-navigationpbt a {
+border-bottom: 1px solid rgba(0,0,0,.05);
+padding: 1.5em;
+}
+}
+/*--------------------------------------------------------------
+6.0 Accessibility
+--------------------------------------------------------------*/
+/* Text meant only for screen readers */
+.screen-reader-textpbt {
+clip: rect(1px, 1px, 1px, 1px);
+position: absolute !important;
+height: 1px;
+width: 1px;
+overflow: hidden;
+}
+.screen-reader-textpbt:hover,
+.screen-reader-textpbt:active,
+.screen-reader-textpbt:focus {
+background-color: #f1f1f1;
+border-radius: 3px;
+box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+clip: auto !important;
+color: #21759b;
+display: block;
+font-size: 14px;
+font-weight: bold;
+height: auto;
+left: 5px;
+line-height: normal;
+padding: 15px 23px 14px;
+text-decoration: none;
+top: 5px;
+width: auto;
+z-index: 100000; /* Above WP toolbar */
+}
+/*--------------------------------------------------------------
+8.0 Clearings
+--------------------------------------------------------------*/
+.clearpbt:before,
+.clearpbt:after,
+.entry-content:before,
+.entry-content:after,
+.site-headerpbt:before,
+.site-headerpbt:after,
+.site-contentpbt:before,
+.site-contentpbt:after,
+.site-footerpbt:before,
+.site-footerpbt:after {
+content: "";
+display: table;
+}
+.clearpbt:after,
+.entry-content:after,
+.site-headerpbt:after,
+.site-contentpbt:after,
+.site-footerpbt:after {
+clear: both;
+}
+/*--------------------------------------------------------------
+9.0 Widgets
+--------------------------------------------------------------*/
+.widget-areapbt .widget {
+margin: 0 0 1em;
+padding: 3em 1.5em;
+position: relative;
+}
+.widget-titlepbt {
+background: #666666;
+margin-bottom: 1.5em;
+color: #ffffff;
+border-radius: 2px;
+position: relative;
+margin-right: -3em;
+}
+.widget-titlepbt:before {
+content: "";
+position: absolute;
+border-top: 1.5em solid #666666;
+border-right: 1.5em solid transparent;
+right: 0;
+bottom: -1.4em;
+}
+.widget-titlepbt:after {
+content: "";
+position: absolute;
+border-top: 1.5em solid rgba(0,0,0,.1);
+border-right: 1.5em solid transparent;
+right: 0;
+}
+.widget-titlepbt h2 {
+font-weight: 300;
+padding: 8px 12px;
+}
+.widget-titlepbt h3 {
+font-weight: 300;
+padding: 8px 12px;
+}
+.widget-titlepbt h2, .widget-titlepbt h3, .entry-title {
+letter-spacing: -1px;
+text-align: center;
+}
+.page-title span {
+font-weight: 300;
+}
+.widget-areapbt .widget ul {
+margin: 0;
+padding: 0;
+list-style-type: none;
+}
+.widget-areapbt .widget ul li {
+border-bottom: 1px solid rgba(0,0,0,.05);
+padding: 0.5em 0;
+}
+/* Make sure select elements fit in widgets */
+.widget select {
+max-width: 100%;
+}
+/* Search widget */
+.widget_search .search-submitpbt {
+display: none;
+}
+/*--------------------------------------------------------------
+10.0 Content
+--------------------------------------------------------------*/
+.spacerightpbt {
+padding-right: 5px;
+}
+.spaceleftpbt {
+padding-left: 5px;
+}
+#pagepbt {
+max-width: 1140px;
+margin: 2em auto;
+}
+.site-titlepbt {
+font-size: 60px;
+text-shadow: 4px 3px 0px #ffffff, 9px 8px 0px rgba(0, 0, 0, 0.1);
+letter-spacing: -2px;
+}
+.site-descriptionpbt {
+font-weight: 300;
+font-size: 20px;
+margin-top: 0.5em;
+letter-spacing: -1px;
+}
+.sociallinepbt {
+margin-top: 0.5em;
+}
+.sociallinepbt a {
+padding: 0.5em;
+}
+.top-search.active {color: #666666;}
+.topsearchformpbt {
+display: none;
+margin-top: 0.5em;
+}
+.topsearchformpbt input[type="search"] {
+width: 100%;
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+border: 0;
+text-align: center;
+}
+.topsearchformpbt input[type="search"]:focus {
+border: 0;
+}
+.thetoppbt {
+text-align: center;
+}
+.thetoppbt, footer.site-footerpbt, .hentry, .widget-areapbt .widget, #totoppbt {
+background: #ffffff;
+-webkit-box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.05);
+-moz-box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.05);
+box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.05);
+border-radius: 2px;
+}
+.thetoppbt {
+padding: 3em 5em;
+margin-bottom: 1em;
+}
+#primarypbt.content-areapbt {
+float:left;
+width: 70%;
+padding-right: 1em;
+}
+#secondarypbt.widget-areapbt {
+float:left;
+width: 30%;
+}
+footer.site-footerpbt {
+padding: 3em 5em;
+}
+.edit-linkpbt a {
+background: #666666;
+padding: 4px 8px;
+color: #ffffff;
+margin: 1px 0;
+font-weight: 300;
+display: inline-block;
+border-radius: 2px;
+border: 1px solid transparent;
+-o-transition: all .7s ease-in-out;
+-moz-transition: all .7s ease-in-out;
+-webkit-transition: all .7s ease-in-out;
+transition: all .7s ease-in-out;
+}
+.edit-linkpbt a:hover {
+border: 1px solid #666666;
+color: #666666;
+background: transparent;
+-o-transition: all 0s ease-in-out;
+-moz-transition: all 0s ease-in-out;
+-webkit-transition: all 0s ease-in-out;
+transition: all 0s ease-in-out;
+}
+.edit-linkpbt {
+display: block;
+}
+.entry-metapbt {
+/*margin-top: 0.8em;*/
+text-align: center;
+}
+.post-title.entry-title {
+margin-bottom: 15px;
+}
+.entry-metapbt .spanpbt {
+margin-right: 10px;
+}
+.site-infopbt {
+text-align: center;
+text-transform: none;
+}
+.site-infopbt a {
+font-weight: 700;
+}
+#totoppbt:hover {
+text-decoration: none;
+}
+#totoppbt {
+display: none;
+position: fixed;
+bottom: 2em;
+right: 1.5em;
+width: 4rem;
+height: 4rem;
+line-height: 4rem;
+text-decoration: none;
+text-align: center;
+cursor: pointer;
+-o-transition: border .3s ease-in-out;
+-moz-transition: border .3s ease-in-out;
+-webkit-transition: border .3s ease-in-out;
+transition: border .3s ease-in-out;
+}
+/*--------------------------------------------------------------
+10.1 Posts and pages
+--------------------------------------------------------------*/
+.hentry {
+margin: 0 0 1em;
+padding: 2.5em 2em 2em;
+}
+.entry-header, .entry-footerpbt {
+padding: 0 0;
+}
+.crestaPostStripeInner {
+width: 5rem;
+height: 5rem;
+text-align: center;
+line-height: 5rem;
+position: absolute;
+top: -2.5rem;
+margin-left: -2.5rem;
+left: 50%;
+right: 50%;
+background: #ffffff;
+border-radius: 50%;
+}
+.entry-content {
+margin: 1.5em 0 0;
+background: #ffffff;
+position: relative;
+padding: 1em 0 0;
+border-radius: 2px;
+/*z-index: 99;*/
+}
+.entry-content {
+border-bottom: 0px solid rgba(0,0,0,.05);
+margin: 1em 0;
+}
+.entry-content a {
+text-decoration: underline;
+}
+/*--------------------------------------------------------------
+12.0 Media
+--------------------------------------------------------------*/
+/* Make sure embeds and iframes fit their containers */
+embed,
+iframe,
+object {
+max-width: 100%;
+}
+@media all and (max-width: 1200px) {
+#pagepbt {
+max-width: 985px;
+}
+}
+@media all and (max-width: 985px) {
+body {
+margin: 0 1.5em;
+}
+#pagepbt {
+max-width: 750px;
+margin: 1.5em auto;
+}
+.widget-titlepbt {
+margin-right: 0;
+margin-left: 0;
+}
+.widget-titlepbt:before, .widget-titlepbt:after {
+content: none;
+}
+#primarypbt.content-areapbt, #secondarypbt.widget-areapbt {
+float: none;
+width: 100%;
+padding: 0;
+}
+#secondarypbt {
+-webkit-column-count: 2;
+-webkit-column-gap: 15px;
+-moz-column-count: 2;
+-moz-column-gap: 15px;
+column-count: 2;
+column-gap: 15px;
+}
+#secondarypbt .widget-areapbt .widget {
+-webkit-column-break-inside: avoid;
+-moz-column-break-inside: avoid;
+column-break-inside: avoid;
+}
+.site-titlepbt {
+font-size: 50px;
+}
+}
+@media all and (max-width: 767px) {
+body {
+margin: 0 0.5em;
+}
+#pagepbt {
+max-width: 445px;
+margin: 0.5em auto;
+}
+h1 {font-size: 25px;}
+h2 {font-size: 23px;}
+h3 {font-size: 18px;}
+h4 {font-size: 15px;}
+h5 {font-size: 13px;}
+h6 {font-size: 10px;}
+#secondarypbt {
+-webkit-column-count: auto;
+-webkit-column-gap: initial;
+-moz-column-count: auto;
+-moz-column-gap: initial;
+column-count: auto;
+column-gap: initial;
+}
+#secondarypbt .widget-areapbt .widget {
+-webkit-column-break-inside: initial;
+-moz-column-break-inside: initial;
+column-break-inside: initial;
+}
+.thetoppbt {
+padding: 1.5em 0.5em;
+}
+.hentry, footer.site-footerpbt, .widget-areapbt .widget {
+padding: 1.5em 0.5em;
+}
+.thetoppbt {
+padding: 1.5em 0.5em;
+}
+.entry-content {
+padding: 1em 1em 0;
+}
+.site-titlepbt {
+font-size: 40px;
+}
+.sociallinepbt a {
+padding: 0.3em;
+}
+.entry-metapbt > .spanpbt {
+display: block;
+}
+}
+@media all and (max-width: 479px) {
+#pagepbt {
+max-width: 297px;
+}
+}
+h2.date-header {
+margin: 10px 0px;
+display: none;
+}
+.main .widget {
+margin: 0 0 5px;
+padding: 0 0 2px;
+}
+.main .Blog {
+border-bottom-width: 0;
+}
+#header .description {
+}
+/* Comments----------------------------------------------- */
+#comments {
+padding:25px;
+margin-bottom:20px;
+background: #ffffff;
+}
+#comments h4 {
+font-size:22px;
+margin-bottom:10px;
+}
+.deleted-comment {
+font-style: italic;
+color: gray;
+}
+#blog-pager-newer-link {
+float: left;
+}
+#blog-pager-older-link {
+float: right;
+}
+#blog-pager {
+text-align: center;
+padding:5px;
+margin: 10px 0;
+}
+.feed-links {
+clear: both;
+}
+.comment-form {
+}
+#navbar-iframe {
+height: 0;
+visibility: hidden;
+display: none;
+}
+.author-profile {
+background: #f6f6f6;
+border: 1px solid #eee;
+margin: 5px 0 10px 0;
+padding: 8px;
+overflow: hidden;
+}
+.author-profile img {
+border: 1px solid #ddd;
+float: left;
+margin-right: 10px;
+}
+.post-iconspbt {
+margin: 5px 0 0 0;
+padding: 0px;
+}
+.post-locationpbt {
+margin: 5px 0;
+padding: 0px;
+}
+.related-postbwrap {
+margin: 10px auto 0;
+}
+.related-postbwrap h4 {
+font-weight: bold;
+margin: 15px 0 10px 0;
+}
+.related-post-style-2,.related-post-style-2 li {
+list-style: none;
+margin: 0;
+padding: 0;
+}
+.related-post-style-2 li {
+border-top: 0px solid #eee;
+overflow: hidden;
+padding: 10px 0px;
+}
+.related-post-style-2 li:first-child {
+border-top: none;
+}
+.related-post-style-2 .related-post-item-thumbnail {
+width: 80px;
+height: 80px;
+max-width: none;
+max-height: none;
+background-color: transparent;
+border: none;
+float: left;
+margin: 2px 10px 0 0;
+padding: 0;
+}
+.related-post-style-2 .related-post-item-title {
+font-weight: normal;
+font-size: 100%;
+}
+.related-post-style-2 .related-post-item-summary {
+display: block;
+}
+.pbtsharethisbutt {
+overflow: hidden;
+padding: 10px 0 5px;
+margin: 0;
+}
+.pbtsharethisbutt ul {
+list-style: none;
+list-style-type: none;
+margin: 0;
+padding: 0;
+}
+.pbtsharethisbutt ul li {
+float: left;
+margin: 0;
+padding: 0;
+}
+.pbtsharethisbutt ul li a {
+padding: 0 10px;
+display: inline-block;
+color: #555;
+text-decoration: none;
+}
+.pbtsharethisbutt ul li a:hover {
+color: #333;
+}
+.separator a[style="margin-left: 1em; margin-right: 1em;"] {margin-left: auto!important;margin-right: auto!important;}
+.separator a[style="clear: left; float: left; margin-bottom: 1em; margin-right: 1em;"] {clear: none !important; float: none !important; margin-bottom: 0em !important; margin-right: 0em !important;}
+.separator a[style="clear: left; float: left; margin-bottom: 1em; margin-right: 1em;"] img {float: left !important; margin: 0px 10px 10px 0px;}
+.separator a[style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"] {clear: none !important; float: none !important; margin-bottom: 0em !important; margin-left: 0em !important;}
+.separator a[style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"] img {float: right !important; margin: 0px 0px 10px 10px;}
+.PopularPosts .widget-content ul li {
+padding:6px 0px;
+}
+.reaction-buttons table{
+border:none;
+margin-bottom:5px;
+}
+.reaction-buttons table, .reaction-buttons td{
+border:none !important;
+}
+.pbtthumbimg {
+float:left;
+margin:0px 10px 5px 0px;
+padding:4px;
+border:0px solid #eee;
+background:none;
+width:200px;
+height:auto;
+}
+
+--></style>
+<script src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/f.txt"></script><script src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/ca-pub-9452082216626643.js.tải xuống"></script><script src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/jquery.min.js.tải xuống" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+
+/*! jQuery Migrate v1.2.1 | (c) 2005, 2013 jQuery Foundation, Inc. and other contributors | jquery.org/license */
+jQuery.migrateMute===void 0&&(jQuery.migrateMute=!0),function(e,t,n){function r(n){var r=t.console;i[n]||(i[n]=!0,e.migrateWarnings.push(n),r&&r.warn&&!e.migrateMute&&(r.warn("JQMIGRATE: "+n),e.migrateTrace&&r.trace&&r.trace()))}function a(t,a,i,o){if(Object.defineProperty)try{return Object.defineProperty(t,a,{configurable:!0,enumerable:!0,get:function(){return r(o),i},set:function(e){r(o),i=e}}),n}catch(s){}e._definePropertyBroken=!0,t[a]=i}var i={};e.migrateWarnings=[],!e.migrateMute&&t.console&&t.console.log&&t.console.log("JQMIGRATE: Logging is active"),e.migrateTrace===n&&(e.migrateTrace=!0),e.migrateReset=function(){i={},e.migrateWarnings.length=0},"BackCompat"===document.compatMode&&r("jQuery is not compatible with Quirks Mode");var o=e("<input/>",{size:1}).attr("size")&&e.attrFn,s=e.attr,u=e.attrHooks.value&&e.attrHooks.value.get||function(){return null},c=e.attrHooks.value&&e.attrHooks.value.set||function(){return n},l=/^(?:input|button)$/i,d=/^[238]$/,p=/^(?:autofocus|autoplay|async|checked|controls|defer|disabled|hidden|loop|multiple|open|readonly|required|scoped|selected)$/i,f=/^(?:checked|selected)$/i;a(e,"attrFn",o||{},"jQuery.attrFn is deprecated"),e.attr=function(t,a,i,u){var c=a.toLowerCase(),g=t&&t.nodeType;return u&&(4>s.length&&r("jQuery.fn.attr( props, pass ) is deprecated"),t&&!d.test(g)&&(o?a in o:e.isFunction(e.fn[a])))?e(t)[a](i):("type"===a&&i!==n&&l.test(t.nodeName)&&t.parentNode&&r("Can't change the 'type' of an input or button in IE 6/7/8"),!e.attrHooks[c]&&p.test(c)&&(e.attrHooks[c]={get:function(t,r){var a,i=e.prop(t,r);return i===!0||"boolean"!=typeof i&&(a=t.getAttributeNode(r))&&a.nodeValue!==!1?r.toLowerCase():n},set:function(t,n,r){var a;return n===!1?e.removeAttr(t,r):(a=e.propFix[r]||r,a in t&&(t[a]=!0),t.setAttribute(r,r.toLowerCase())),r}},f.test(c)&&r("jQuery.fn.attr('"+c+"') may use property instead of attribute")),s.call(e,t,a,i))},e.attrHooks.value={get:function(e,t){var n=(e.nodeName||"").toLowerCase();return"button"===n?u.apply(this,arguments):("input"!==n&&"option"!==n&&r("jQuery.fn.attr('value') no longer gets properties"),t in e?e.value:null)},set:function(e,t){var a=(e.nodeName||"").toLowerCase();return"button"===a?c.apply(this,arguments):("input"!==a&&"option"!==a&&r("jQuery.fn.attr('value', val) no longer sets properties"),e.value=t,n)}};var g,h,v=e.fn.init,m=e.parseJSON,y=/^([^<]*)(<[\w\W]+>)([^>]*)$/;e.fn.init=function(t,n,a){var i;return t&&"string"==typeof t&&!e.isPlainObject(n)&&(i=y.exec(e.trim(t)))&&i[0]&&("<"!==t.charAt(0)&&r("$(html) HTML strings must start with '<' character"),i[3]&&r("$(html) HTML text after last tag is ignored"),"#"===i[0].charAt(0)&&(r("HTML string cannot start with a '#' character"),e.error("JQMIGRATE: Invalid selector string (XSS)")),n&&n.context&&(n=n.context),e.parseHTML)?v.call(this,e.parseHTML(i[2],n,!0),n,a):v.apply(this,arguments)},e.fn.init.prototype=e.fn,e.parseJSON=function(e){return e||null===e?m.apply(this,arguments):(r("jQuery.parseJSON requires a valid JSON string"),null)},e.uaMatch=function(e){e=e.toLowerCase();var t=/(chrome)[ \/]([\w.]+)/.exec(e)||/(webkit)[ \/]([\w.]+)/.exec(e)||/(opera)(?:.*version|)[ \/]([\w.]+)/.exec(e)||/(msie) ([\w.]+)/.exec(e)||0>e.indexOf("compatible")&&/(mozilla)(?:.*? rv:([\w.]+)|)/.exec(e)||[];return{browser:t[1]||"",version:t[2]||"0"}},e.browser||(g=e.uaMatch(navigator.userAgent),h={},g.browser&&(h[g.browser]=!0,h.version=g.version),h.chrome?h.webkit=!0:h.webkit&&(h.safari=!0),e.browser=h),a(e,"browser",e.browser,"jQuery.browser is deprecated"),e.sub=function(){function t(e,n){return new t.fn.init(e,n)}e.extend(!0,t,this),t.superclass=this,t.fn=t.prototype=this(),t.fn.constructor=t,t.sub=this.sub,t.fn.init=function(r,a){return a&&a instanceof e&&!(a instanceof t)&&(a=t(a)),e.fn.init.call(this,r,a,n)},t.fn.init.prototype=t.fn;var n=t(document);return r("jQuery.sub() is deprecated"),t},e.ajaxSetup({converters:{"text json":e.parseJSON}});var b=e.fn.data;e.fn.data=function(t){var a,i,o=this[0];return!o||"events"!==t||1!==arguments.length||(a=e.data(o,t),i=e._data(o,t),a!==n&&a!==i||i===n)?b.apply(this,arguments):(r("Use of jQuery.fn.data('events') is deprecated"),i)};var j=/\/(java|ecma)script/i,w=e.fn.andSelf||e.fn.addBack;e.fn.andSelf=function(){return r("jQuery.fn.andSelf() replaced by jQuery.fn.addBack()"),w.apply(this,arguments)},e.clean||(e.clean=function(t,a,i,o){a=a||document,a=!a.nodeType&&a[0]||a,a=a.ownerDocument||a,r("jQuery.clean() is deprecated");var s,u,c,l,d=[];if(e.merge(d,e.buildFragment(t,a).childNodes),i)for(c=function(e){return!e.type||j.test(e.type)?o?o.push(e.parentNode?e.parentNode.removeChild(e):e):i.appendChild(e):n},s=0;null!=(u=d[s]);s++)e.nodeName(u,"script")&&c(u)||(i.appendChild(u),u.getElementsByTagName!==n&&(l=e.grep(e.merge([],u.getElementsByTagName("script")),c),d.splice.apply(d,[s+1,0].concat(l)),s+=l.length));return d});var Q=e.event.add,x=e.event.remove,k=e.event.trigger,N=e.fn.toggle,T=e.fn.live,M=e.fn.die,S="ajaxStart|ajaxStop|ajaxSend|ajaxComplete|ajaxError|ajaxSuccess",C=RegExp("\\b(?:"+S+")\\b"),H=/(?:^|\s)hover(\.\S+|)\b/,A=function(t){return"string"!=typeof t||e.event.special.hover?t:(H.test(t)&&r("'hover' pseudo-event is deprecated, use 'mouseenter mouseleave'"),t&&t.replace(H,"mouseenter$1 mouseleave$1"))};e.event.props&&"attrChange"!==e.event.props[0]&&e.event.props.unshift("attrChange","attrName","relatedNode","srcElement"),e.event.dispatch&&a(e.event,"handle",e.event.dispatch,"jQuery.event.handle is undocumented and deprecated"),e.event.add=function(e,t,n,a,i){e!==document&&C.test(t)&&r("AJAX events should be attached to document: "+t),Q.call(this,e,A(t||""),n,a,i)},e.event.remove=function(e,t,n,r,a){x.call(this,e,A(t)||"",n,r,a)},e.fn.error=function(){var e=Array.prototype.slice.call(arguments,0);return r("jQuery.fn.error() is deprecated"),e.splice(0,0,"error"),arguments.length?this.bind.apply(this,e):(this.triggerHandler.apply(this,e),this)},e.fn.toggle=function(t,n){if(!e.isFunction(t)||!e.isFunction(n))return N.apply(this,arguments);r("jQuery.fn.toggle(handler, handler...) is deprecated");var a=arguments,i=t.guid||e.guid++,o=0,s=function(n){var r=(e._data(this,"lastToggle"+t.guid)||0)%o;return e._data(this,"lastToggle"+t.guid,r+1),n.preventDefault(),a[r].apply(this,arguments)||!1};for(s.guid=i;a.length>o;)a[o++].guid=i;return this.click(s)},e.fn.live=function(t,n,a){return r("jQuery.fn.live() is deprecated"),T?T.apply(this,arguments):(e(this.context).on(t,this.selector,n,a),this)},e.fn.die=function(t,n){return r("jQuery.fn.die() is deprecated"),M?M.apply(this,arguments):(e(this.context).off(t,this.selector||"**",n),this)},e.event.trigger=function(e,t,n,a){return n||C.test(e)||r("Global events are undocumented and deprecated"),k.call(this,e,t,n||document,a)},e.each(S.split("|"),function(t,n){e.event.special[n]={setup:function(){var t=this;return t!==document&&(e.event.add(document,n+"."+e.guid,function(){e.event.trigger(n,null,t,!0)}),e._data(this,n,e.guid++)),!1},teardown:function(){return this!==document&&e.event.remove(document,n+"."+e._data(this,n)),!1}}})}(jQuery,window);
+
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+
+function showrecentcomments(json){for(var i=0;i<a_rc;i++){var b_rc=json.feed.entry[i];var c_rc;if(i==json.feed.entry.length)break;for(var k=0;k<b_rc.link.length;k++){if(b_rc.link[k].rel=='alternate'){c_rc=b_rc.link[k].href;break;}}c_rc=c_rc.replace("#","#comment-");var d_rc=c_rc.split("#");d_rc=d_rc[0];var e_rc=d_rc.split("/");e_rc=e_rc[5];e_rc=e_rc.split(".html");e_rc=e_rc[0];var f_rc=e_rc.replace(/-/g," ");f_rc=f_rc.link(d_rc);var g_rc=b_rc.published.$t;var h_rc=g_rc.substring(0,4);var i_rc=g_rc.substring(5,7);var j_rc=g_rc.substring(8,10);var k_rc=new Array();k_rc[1]="Jan";k_rc[2]="Feb";k_rc[3]="Mar";k_rc[4]="Apr";k_rc[5]="May";k_rc[6]="Jun";k_rc[7]="Jul";k_rc[8]="Aug";k_rc[9]="Sep";k_rc[10]="Oct";k_rc[11]="Nov";k_rc[12]="Dec";if("content" in b_rc){var l_rc=b_rc.content.$t;}else if("summary" in b_rc){var l_rc=b_rc.summary.$t;}else var l_rc="";var re=/<\S[^>]*>/g;l_rc=l_rc.replace(re,"");if(m_rc==true)document.write('On '+k_rc[parseInt(i_rc,10)]+' '+j_rc+' ');document.write('<a href="'+c_rc+'">'+b_rc.author[0].name.$t+'</a> commented');if(n_rc==true)document.write(' on '+f_rc);document.write(': ');if(l_rc.length<o_rc){document.write('<i>&#8220;');document.write(l_rc);document.write('&#8221;</i><br/><br/>');}else{document.write('<i>&#8220;');l_rc=l_rc.substring(0,o_rc);var p_rc=l_rc.lastIndexOf(" ");l_rc=l_rc.substring(0,p_rc);document.write(l_rc+'&hellip;&#8221;</i>');document.write('<br/><br/>');}}}
+
+function rp(json){document.write('<ul>');for(var i=0;i<numposts;i++){document.write('<li>');var entry=json.feed.entry[i];var posttitle=entry.title.$t;var posturl;if(i==json.feed.entry.length)break;for(var k=0;k<entry.link.length;k++){if(entry.link[k].rel=='alternate'){posturl=entry.link[k].href;break}}posttitle=posttitle.link(posturl);var readmorelink="(more)";readmorelink=readmorelink.link(posturl);var postdate=entry.published.$t;var cdyear=postdate.substring(0,4);var cdmonth=postdate.substring(5,7);var cdday=postdate.substring(8,10);var monthnames=new Array();monthnames[1]="Jan";monthnames[2]="Feb";monthnames[3]="Mar";monthnames[4]="Apr";monthnames[5]="May";monthnames[6]="Jun";monthnames[7]="Jul";monthnames[8]="Aug";monthnames[9]="Sep";monthnames[10]="Oct";monthnames[11]="Nov";monthnames[12]="Dec";if("content"in entry){var postcontent=entry.content.$t}else if("summary"in entry){var postcontent=entry.summary.$t}else var postcontent="";var re=/<\S[^>]*>/g;postcontent=postcontent.replace(re,"");document.write(posttitle);if(showpostdate==true)document.write(' - '+monthnames[parseInt(cdmonth,10)]+' '+cdday);if(showpostsummary==true){if(postcontent.length<numchars){document.write(postcontent)}else{postcontent=postcontent.substring(0,numchars);var quoteEnd=postcontent.lastIndexOf(" ");postcontent=postcontent.substring(0,quoteEnd);document.write(postcontent+'...'+readmorelink)}}document.write('</li>')}document.write('</ul>')}
+
+//]]>
+</script>
+<script type="text/javascript">
+summary_noimg = 300;
+summary_img = 220;
+img_thumb_height = 150;
+img_thumb_width = 200; 
+</script>
+<script type="text/javascript">
+//<![CDATA[
+
+function removeHtmlTag(strx,chop){ 
+	if(strx.indexOf("<")!=-1)
+	{
+		var s = strx.split("<"); 
+		for(var i=0;i<s.length;i++){ 
+			if(s[i].indexOf(">")!=-1){ 
+				s[i] = s[i].substring(s[i].indexOf(">")+1,s[i].length); 
+			} 
+		} 
+		strx =  s.join(""); 
+	}
+	chop = (chop < strx.length-1) ? chop : strx.length-2; 
+	while(strx.charAt(chop-1)!=' ' && strx.indexOf(' ',chop)!=-1) chop++; 
+	strx = strx.substring(0,chop-1); 
+	return strx+'...'; 
+}
+
+function createSummaryAndThumb(pID){
+	var div = document.getElementById(pID);
+	var imgtag = "";
+	var img = div.getElementsByTagName("img");
+	var summ = summary_noimg;
+	if(img.length>=1) {	
+		imgtag = '<img src="'+img[0].src+'" class="pbtthumbimg"/>';
+		summ = summary_img;
+	}
+	
+	var summary = imgtag + '<div>' + removeHtmlTag(div.innerHTML,summ) + '</div>';
+	div.innerHTML = summary;
+}
+
+//]]>
+</script>
+<style type="text/css">
+.entry-header, .entry-content, .entry-footerpbt {padding-left:0px;padding-right:0px;}
+</style>
+<link href="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/authorization.css" media="all" onload="if(media!=&#39;all&#39;)media=&#39;all&#39;" rel="stylesheet"><noscript><link href='https://www.blogger.com/dyn-css/authorization.css?targetBlogID=7549705215513488945&amp;zx=5be9bdb2-15f7-4b4f-b6d8-e9fc280f77b4' rel='stylesheet'/></noscript>
+
+<script type="text/javascript" src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/http"></script><link rel="preload" href="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/f(1).txt" as="script"><script type="text/javascript" src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/f(1).txt"></script><link rel="preload" href="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/f(2).txt" as="script"><script type="text/javascript" src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/f(2).txt"></script><script type="text/javascript" src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/http(1)"></script></head>
+<body>
+<div id="pagepbt">
+<a class="skip-linkpbt screen-reader-textpbt" href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html#contentpbt">Skip to content</a>
+<header class="site-headerpbt" id="mastheadpbt" role="banner">
+<div class="thetoppbt">
+<div class="site-brandingpbt">
+<div class="headersec section" id="headersec"><div class="widget Header" data-version="1" id="Header1">
+<div id="header-inner">
+<div class="titlewrapper">
+<h1 class="site-titlepbt">
+<a href="http://www.iotsharing.com/">IoT Sharing</a>
+</h1>
+</div>
+<h2 class="site-descriptionpbt">
+</h2>
+</div>
+</div></div>
+</div>
+<div class="sociallinepbt">
+<a href="https://www.facebook.com/IoT-Sharing-301096713665166/" rel="nofollow" target="_blank" title="Facebook"><i class="fa spaceRightDouble fa-facebook"></i></a>
+<a href="https://twitter.com/iotsharing" rel="nofollow" target="_blank" title="Twitter"><i class="fa spaceRightDouble fa-twitter"></i></a>
+<a href="https://plus.google.com/u/0/100068993027571899198" rel="nofollow" target="_blank" title="Google Plus"><i class="fa spaceRightDouble fa-google-plus"></i></a>
+<a href="https://www.youtube.com/channel/UC-wWHPC9Z-bnSnKbzej93rg" rel="nofollow" target="_blank" title="YouTube"><i class="fa spaceRightDouble fa-youtube"></i></a>
+<a href="http://www.iotsharing.com/feeds/posts/default" rel="nofollow" target="_blank" title="RSS"><i class="fa spaceRightDouble fa-rss"></i></a>
+<a class="top-search" href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html#"><i class="fa spaceRightDouble fa-search"></i></a>
+</div>
+<div class="topsearchformpbt">
+<form action="http://www.iotsharing.com/search" id="searchformpbt" method="get" role="search">
+<input name="q" placeholder="Type here and hit enter..." type="search">
+</form>
+</div>
+</div>
+<nav class="main-navigationpbt smallpartpbt" id="site-navigationpbt" role="navigation">
+<button class="menu-togglepbt">Menu<i class="fa fa-align-justify"></i></button>
+<div class="menu-testing-menu-container">
+<ul class="menupbt nav-menu">
+<li><a href="http://www.iotsharing.com/">Home</a></li>
+<li><a href="https://github.com/nhatuan84">Github</a></li>
+<li><a href="http://www.fossreview.com/">Teach It Yourself</a></li>
+<li><a href="http://www.iotsharing.com/p/blog-page.html">About</a></li>
+</ul>
+</div>
+</nav><!-- #site-navigation -->
+</header><!-- #masthead -->
+<div class="site-contentpbt" id="contentpbt">
+<div class="content-areapbt" id="primarypbt">
+<div class="site-mainpbt" id="mainpbt" role="main">
+<div class="mainblogsec section" id="mainblogsec"><div class="widget Blog" data-version="1" id="Blog1">
+<div class="blog-posts hfeed">
+<!--Can't find substitution for tag [defaultAdStart]-->
+
+          <div class="date-outer">
+        
+<h2 class="date-header"><span>Saturday, November 25, 2017</span></h2>
+
+          <div class="date-posts">
+        
+<div class="post-outer">
+<article class="post hentry" itemprop="blogPost" itemscope="itemscope" itemtype="http://schema.org/BlogPosting">
+<meta content="https://4.bp.blogspot.com/-VqeyOEv438M/WhQitKb5A_I/AAAAAAAAFs8/6LhPYW9uk6MQNOab47wil49GjO9vXDvIwCLcBGAs/s400/esp32wota.png" itemprop="image">
+<a name="1891669169864780233"></a>
+<header class="entry-header">
+<h1 class="post-title entry-title" itemprop="name">
+<a href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html">Demo 36: Firmware update OTA via ESP Http Web Server</a>
+</h1>
+<div class="entry-metapbt smallpartpbt">
+<meta content="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html" itemprop="url"><span class="spanpbt"><a class="timestamp-link" href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html" rel="bookmark" title="permanent link"><i class="fa fa-calendar spacerightpbt"></i>&nbsp;<span class="published updated" itemprop="datePublished" title="2017-11-25T19:26:00-08:00">7:26 PM</span></a></span>
+<i class="fa fa-user spacerightpbt"></i>&nbsp;<span class="spanpbt post-author vcard"><span class="fn" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person"><meta content="https://plus.google.com/100068993027571899198" itemprop="url"><a class="g-profile" href="https://plus.google.com/100068993027571899198" rel="author" title="author profile"><span itemprop="name">iotsharing dotcom</span></a></span></span>
+<span class="spanpbt smallpartpbt"><i class="fa fa-folder-open spacerightpbt"></i>&nbsp;<a href="http://www.iotsharing.com/search/label/Backend" rel="tag">Backend</a>, <a href="http://www.iotsharing.com/search/label/ESP32" rel="tag">ESP32</a>, <a href="http://www.iotsharing.com/search/label/fota" rel="tag">fota</a>, <a href="http://www.iotsharing.com/search/label/http" rel="tag">http</a>, <a href="http://www.iotsharing.com/search/label/Projects" rel="tag">Projects</a></span>
+<span class="spanpbt"><i class="fa fa-comments-o spacerightpbt"></i>&nbsp;<a href="https://www.blogger.com/comment.g?blogID=7549705215513488945&amp;postID=1891669169864780233" onclick="">30 comments</a></span>
+<span class="item-control blog-admin pid-1298951643">
+<a href="https://www.blogger.com/post-edit.g?blogID=7549705215513488945&amp;postID=1891669169864780233&amp;from=pencil" title="Edit Post">
+<img alt="" class="icon-action" height="18" src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/icon18_edit_allbkg.gif" width="18">
+</a>
+</span>
+</div>
+</header>
+<div class="post-header-line-1"></div>
+<div class="post-body entry-content" id="post-body-1891669169864780233" itemprop="articleBody">
+<div dir="ltr" style="text-align: left;" trbidi="on">
+<b>1. Introduction</b><br>
+In <a href="http://www.iotsharing.com/2017/11/firmware-update-ota-for-esp32-using-http-sdcard.html">Demo 34: firmware update OTA for ESP32 using HTTP and sdcard</a> and <a href="http://www.iotsharing.com/2017/11/firmware-update-ota-for-esp32-using-http.html">Demo 35: firmware update OTA for ESP32 directly using HTTP</a>, I showed ways to update firmware OTA. In this demo, I will show you another way. That is updating firmware OTA for ESP via ESP Http Web server. With this demo, ESP will act as a web server and user will access the web server and upload the firmware file to ESP via web browser.<br>
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://4.bp.blogspot.com/-VqeyOEv438M/WhQitKb5A_I/AAAAAAAAFs8/6LhPYW9uk6MQNOab47wil49GjO9vXDvIwCLcBGAs/s1600/esp32wota.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="192" data-original-width="482" height="158" src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/esp32wota.png" width="400"></a></div>
+<div style="text-align: center;">
+<b>Figure: Web interface of the demo</b></div>
+<div style="text-align: left;">
+User choose <b>Browse</b> button, navigate to firmware file and press <b>Update</b> button. The updating progress will be shown.</div>
+<div style="text-align: left;">
+<b>2. Hardware</b></div>
+<div style="text-align: left;">
+Using <a href="http://www.iotsharing.com/2017/05/blinky-hello-world-on-arduino-esp32.html" target="_blank">Demo 1 </a>to connect ESP to LED.</div>
+<div style="text-align: left;">
+<b>3. Software</b><br>
+- First, we will create a simple LED blink application, export the binary file 
+for updating. In order to export the <b>.bin</b> file from Arduino IDE Menu, we
+ choose <b>Sketch -&gt; Export compiled Binary</b>. After finishing we choose <b>Sketch -&gt; Show Sketch Folder</b>. You will see the <b>.bin</b> file there, rename it as <b>led.bin. </b>Below is the LED blinky code.
+<br>
+<div style="background: #ffffff; border-width: 0.1em 0.1em 0.1em 0.8em; border: solid gray; overflow: auto; padding: 0.2em 0.6em; width: auto;">
+<table><tbody>
+<tr><td><pre style="line-height: 125%; margin: 0;"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre>
+</td><td><pre style="line-height: 125%; margin: 0;"><span style="color: #333399; font-weight: bold;">int</span> ledPin <span style="color: #333333;">=</span> <span style="color: #0000dd; font-weight: bold;">14</span>; 
+
+<span style="color: #333399; font-weight: bold;">void</span> <span style="color: #0066bb; font-weight: bold;">setup</span>(){
+  pinMode(ledPin, OUTPUT);
+}
+
+<span style="color: #333399; font-weight: bold;">void</span> <span style="color: #0066bb; font-weight: bold;">loop</span>(){
+  digitalWrite(ledPin, HIGH);
+  delay(<span style="color: #0000dd; font-weight: bold;">1000</span>);
+  digitalWrite(ledPin, LOW);
+  delay(<span style="color: #0000dd; font-weight: bold;">1000</span>);
+} 
+</pre>
+</td></tr>
+</tbody></table>
+</div>
+<div style="text-align: left;">
+- Second, we will re-use the Web Server library in <a href="http://www.iotsharing.com/2017/05/how-to-turn-esp32-into-web-server.html" target="_blank">Demo 12: How to turn the Arduino ESP32 into a Web Server.</a> Beside that, i also used the jquery library to create uploading Http POST request. MDNS (<a href="http://www.iotsharing.com/2017/05/how-to-use-mdns-to-resolve-hostname-esp32-ipaddress.html" target="_blank">Demo 9: How to use mDNS to resolve host names to Arduino ESP32 IP addresses</a>) was used to resolve host name for our web server instead of using IP address directly. The code will be explained below.</div>
+<div style="background: #ffffff; border-width: 0.1em 0.1em 0.1em 0.8em; border: solid gray; overflow: auto; padding: 0.2em 0.6em; width: auto;">
+<table><tbody>
+<tr><td><pre style="line-height: 125%; margin: 0;">  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110</pre>
+</td><td><pre style="line-height: 125%; margin: 0;"><span style="color: #557799;">#include &lt;WiFi.h&gt;</span>
+<span style="color: #557799;">#include &lt;WiFiClient.h&gt;</span>
+<span style="color: #557799;">#include &lt;ESP32WebServer.h&gt;</span>
+<span style="color: #557799;">#include &lt;ESPmDNS.h&gt;</span>
+<span style="color: #557799;">#include &lt;Update.h&gt;</span>
+#include "esp_wps.h"
+<span style="color: #008800; font-weight: bold;">const</span> <span style="color: #333399; font-weight: bold;">char</span><span style="color: #333333;">*</span> host <span style="color: #333333;">=</span> <span style="background-color: #fff0f0;">"esp32webupdate"</span>;
+<span style="color: #008800; font-weight: bold;">const</span> <span style="color: #333399; font-weight: bold;">char</span><span style="color: #333333;">*</span> ssid <span style="color: #333333;">=</span> <span style="background-color: #fff0f0;">"dd-wrt"</span>;
+<span style="color: #008800; font-weight: bold;">const</span> <span style="color: #333399; font-weight: bold;">char</span><span style="color: #333333;">*</span> password <span style="color: #333333;">=</span> <span style="background-color: #fff0f0;">"0000000000"</span>;
+
+ESP32WebServer <span style="color: #0066bb; font-weight: bold;">server</span>(<span style="color: #0000dd; font-weight: bold;">80</span>);
+<span style="color: #008800; font-weight: bold;">const</span> <span style="color: #333399; font-weight: bold;">char</span><span style="color: #333333;">*</span> serverIndex <span style="color: #333333;">=</span> <span style="background-color: #fff0f0;">"&lt;script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'&gt;&lt;/script&gt;"</span>
+<span style="background-color: #fff0f0;">"&lt;form method='POST' action='#' enctype='multipart/form-data' id='upload_form'&gt;"</span>
+    <span style="background-color: #fff0f0;">"&lt;input type='file' name='update'&gt;"</span>
+    <span style="background-color: #fff0f0;">"&lt;input type='submit' value='Update'&gt;"</span>
+<span style="background-color: #fff0f0;">"&lt;/form&gt;"</span>
+<span style="background-color: #fff0f0;">"&lt;div id='prg'&gt;progress: 0%&lt;/div&gt;"</span>
+<span style="background-color: #fff0f0;">"&lt;script&gt;"</span>
+<span style="background-color: #fff0f0;">"$('form').submit(function(e){"</span>
+    <span style="background-color: #fff0f0;">"e.preventDefault();"</span>
+      <span style="background-color: #fff0f0;">"var form = $('#upload_form')[0];"</span>
+      <span style="background-color: #fff0f0;">"var data = new FormData(form);"</span>
+      <span style="background-color: #fff0f0;">" $.ajax({"</span>
+            <span style="background-color: #fff0f0;">"url: '/update',"</span>
+            <span style="background-color: #fff0f0;">"type: 'POST',"</span>               
+            <span style="background-color: #fff0f0;">"data: data,"</span>
+            <span style="background-color: #fff0f0;">"contentType: false,"</span>                  
+            <span style="background-color: #fff0f0;">"processData:false,"</span>  
+            <span style="background-color: #fff0f0;">"xhr: function() {"</span>
+                <span style="background-color: #fff0f0;">"var xhr = new window.XMLHttpRequest();"</span>
+                <span style="background-color: #fff0f0;">"xhr.upload.addEventListener('progress', function(evt) {"</span>
+                    <span style="background-color: #fff0f0;">"if (evt.lengthComputable) {"</span>
+                        <span style="background-color: #fff0f0;">"var per = evt.loaded / evt.total;"</span>
+                        <span style="background-color: #fff0f0;">"$('#prg').html('progress: ' + Math.round(per*100) + '%');"</span>
+                    <span style="background-color: #fff0f0;">"}"</span>
+               <span style="background-color: #fff0f0;">"}, false);"</span>
+               <span style="background-color: #fff0f0;">"return xhr;"</span>
+            <span style="background-color: #fff0f0;">"},"</span>                                
+            <span style="background-color: #fff0f0;">"success:function(d, s) {"</span>    
+                <span style="background-color: #fff0f0;">"console.log('success!')"</span>
+           <span style="background-color: #fff0f0;">"},"</span>
+            <span style="background-color: #fff0f0;">"error: function (a, b, c) {"</span>
+            <span style="background-color: #fff0f0;">"}"</span>
+          <span style="background-color: #fff0f0;">"});"</span>
+<span style="background-color: #fff0f0;">"});"</span>
+<span style="background-color: #fff0f0;">"&lt;/script&gt;"</span>;
+
+<span style="color: #333399; font-weight: bold;">void</span> <span style="color: #0066bb; font-weight: bold;">setup</span>(<span style="color: #333399; font-weight: bold;">void</span>){
+    Serial.begin(<span style="color: #0000dd; font-weight: bold;">115200</span>);
+
+    <span style="color: #888888;">// Connect to WiFi network</span>
+    WiFi.begin(ssid, password);
+    Serial.println(<span style="background-color: #fff0f0;">""</span>);
+
+    <span style="color: #888888;">// Wait for connection</span>
+    <span style="color: #008800; font-weight: bold;">while</span> (WiFi.status() <span style="color: #333333;">!=</span> WL_CONNECTED) {
+        delay(<span style="color: #0000dd; font-weight: bold;">500</span>);
+        Serial.print(<span style="background-color: #fff0f0;">"."</span>);
+    }
+    Serial.println(<span style="background-color: #fff0f0;">""</span>);
+    Serial.print(<span style="background-color: #fff0f0;">"Connected to "</span>);
+    Serial.println(ssid);
+    Serial.print(<span style="background-color: #fff0f0;">"IP address: "</span>);
+    Serial.println(WiFi.localIP());
+
+    <span style="color: #888888;">/*use mdns for host name resolution*/</span>
+    <span style="color: #008800; font-weight: bold;">if</span> (<span style="color: #333333;">!</span>MDNS.begin(host)) {
+        Serial.println(<span style="background-color: #fff0f0;">"Error setting up MDNS responder!"</span>);
+        <span style="color: #008800; font-weight: bold;">while</span>(<span style="color: #0000dd; font-weight: bold;">1</span>) {
+            delay(<span style="color: #0000dd; font-weight: bold;">1000</span>);
+        }
+    }
+    Serial.println(<span style="background-color: #fff0f0;">"mDNS responder started"</span>);
+    <span style="color: #888888;">/*return index page which is stored in serverIndex */</span>
+    server.on(<span style="background-color: #fff0f0;">"/"</span>, HTTP_GET, [](){
+      server.sendHeader(<span style="background-color: #fff0f0;">"Connection"</span>, <span style="background-color: #fff0f0;">"close"</span>);
+      server.send(<span style="color: #0000dd; font-weight: bold;">200</span>, <span style="background-color: #fff0f0;">"text/html"</span>, serverIndex);
+    });
+    <span style="color: #888888;">/*handling uploading firmware file */</span>
+    server.on(<span style="background-color: #fff0f0;">"/update"</span>, HTTP_POST, [](){
+      server.sendHeader(<span style="background-color: #fff0f0;">"Connection"</span>, <span style="background-color: #fff0f0;">"close"</span>);
+      server.send(<span style="color: #0000dd; font-weight: bold;">200</span>, <span style="background-color: #fff0f0;">"text/plain"</span>, (Update.hasError())<span style="color: #333333;">?</span><span style="background-color: #fff0f0;">"FAIL"</span><span style="color: #333333;">:</span><span style="background-color: #fff0f0;">"OK"</span>);
+      esp_wifi_wps_disable(); ESP.restart();
+    },[](){
+      HTTPUpload<span style="color: #333333;">&amp;</span> upload <span style="color: #333333;">=</span> server.upload();
+      <span style="color: #008800; font-weight: bold;">if</span>(upload.status <span style="color: #333333;">==</span> UPLOAD_FILE_START){
+        Serial.printf(<span style="background-color: #fff0f0;">"Update: %s</span><span style="background-color: #fff0f0; color: #666666; font-weight: bold;">\n</span><span style="background-color: #fff0f0;">"</span>, upload.filename.c_str());
+        <span style="color: #008800; font-weight: bold;">if</span>(<span style="color: #333333;">!</span>Update.begin(UPDATE_SIZE_UNKNOWN)){<span style="color: #888888;">//start with max available size</span>
+          Update.printError(Serial);
+        }
+      } <span style="color: #008800; font-weight: bold;">else</span> <span style="color: #008800; font-weight: bold;">if</span>(upload.status <span style="color: #333333;">==</span> UPLOAD_FILE_WRITE){
+        <span style="color: #888888;">/* flashing firmware to ESP*/</span>
+        <span style="color: #008800; font-weight: bold;">if</span>(Update.write(upload.buf, upload.currentSize) <span style="color: #333333;">!=</span> upload.currentSize){
+          Update.printError(Serial);
+        }
+      } <span style="color: #008800; font-weight: bold;">else</span> <span style="color: #008800; font-weight: bold;">if</span>(upload.status <span style="color: #333333;">==</span> UPLOAD_FILE_END){
+        <span style="color: #008800; font-weight: bold;">if</span>(Update.end(<span style="color: #007020;">true</span>)){ <span style="color: #888888;">//true to set the size to the current progress</span>
+          Serial.printf(<span style="background-color: #fff0f0;">"Update Success: %u</span><span style="background-color: #fff0f0; color: #666666; font-weight: bold;">\n</span><span style="background-color: #fff0f0;">Rebooting...</span><span style="background-color: #fff0f0; color: #666666; font-weight: bold;">\n</span><span style="background-color: #fff0f0;">"</span>, upload.totalSize);
+        } <span style="color: #008800; font-weight: bold;">else</span> {
+          Update.printError(Serial);
+        }
+      }
+    });
+    server.begin();
+}
+
+<span style="color: #333399; font-weight: bold;">void</span> <span style="color: #0066bb; font-weight: bold;">loop</span>(<span style="color: #333399; font-weight: bold;">void</span>){
+  server.handleClient();
+  delay(<span style="color: #0000dd; font-weight: bold;">1</span>);
+}
+</pre>
+</td></tr>
+</tbody></table>
+</div>
+In the code, the variable <b>serverIndex </b>holds the <b>index</b> page which is return to the web browser firstly. We will use "<b>$.ajax</b>" to create asynchronous uploading request. This request will be handled by "/update" action at web server. We also use "<b>var xhr = new window.XMLHttpRequest()</b>" to handle the progress of uploading. <br>
+The code "<b>MDNS.begin(host)</b>" will use MDNS to resolve "<b>http://esp32webupdate.local</b>" to our web server IP address.<br>
+The code "<b>server.on("/", HTTP_GET, []()</b>" will handle the first HTTP GET request from web browser and return the http status code 200 and the web page content in <b>serverIndex</b> variable.<br>
+The code "<b>server.on("/update", HTTP_POST, []()</b>" will handle the uploading firmware file process via HTTP POST. We handle the order of process via "<b>upload.status</b>" and use <b>Update </b>for flashing firmware. After finishing, we call "ESP.restart();" to restart ESP to get effect.<br>
+<b>4. Result</b><br>
+Open web browser and <b>Browse </b>to the file "led.bin" and press <b>Update </b>button.<b> </b><br>
+<div class="separator" style="clear: both; text-align: center;">
+<iframe allowfullscreen="" class="YOUTUBE-iframe-video" data-thumbnail-src="https://i.ytimg.com/vi/wuKAGIeEk9U/0.jpg" frameborder="0" height="266" src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/wuKAGIeEk9U.html" width="480"></iframe></div>
+<br></div>
+</div>
+<div style="clear: both;"></div>
+<div class="pbtsharethisbutt">
+<ul class="pbt-social-icons" id="social-post-un">
+<li class="Share-this-arti">Share This:&nbsp;&nbsp;</li>
+<li class="pbtfacebook"><a href="http://www.facebook.com/share.php?v=4&amp;src=bm&amp;u=http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html&amp;t=Demo%2036:%20Firmware%20update%20OTA%20via%20ESP%20Http%20Web%20Server" onclick="window.open(this.href,&quot;sharer&quot;,&quot;toolbar=0,status=0,width=626,height=436&quot;); return false;" rel="nofollow" target="_blank" title="Share this on Facebook"><i class="fa fa-facebook-square"></i>&nbsp;Facebook</a></li><li class="pbttwitter"><a href="http://twitter.com/home?status=Demo%2036:%20Firmware%20update%20OTA%20via%20ESP%20Http%20Web%20Server%20--%20http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html" rel="nofollow" target="_blank" title="Tweet This!"><i class="fa fa-twitter-square"></i>&nbsp;Twitter</a></li><li class="pbtgoogle"><a href="https://plus.google.com/share?url=http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html" onclick="javascript:window.open(this.href,   &quot;&quot;, &quot;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600&quot;);return false;" rel="nofollow" target="_blank" title="Share this on Google+"><i class="fa fa-google-plus-square"></i>&nbsp;Google+</a></li><li class="pbtstumbleupon"><a href="http://www.stumbleupon.com/submit?url=http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html&amp;title=Demo%2036:%20Firmware%20update%20OTA%20via%20ESP%20Http%20Web%20Server" rel="nofollow" target="_blank" title="Stumble upon something good? Share it on StumbleUpon"><i class="fa fa-stumbleupon-circle"></i>&nbsp;Stumble</a></li><li class="pbtdigg"><a href="http://digg.com/submit?phase=2&amp;url=http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html&amp;title=Demo%2036:%20Firmware%20update%20OTA%20via%20ESP%20Http%20Web%20Server" rel="nofollow" target="_blank" title="Digg this!"><i class="fa fa-digg"></i>&nbsp;Digg</a></li>
+</ul>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div class="post-iconspbt">
+<span class="post-icons" style="padding-right:10px;">
+</span>
+<div class="post-share-buttons goog-inline-block">
+<a class="goog-inline-block share-button sb-email" href="https://www.blogger.com/share-post.g?blogID=7549705215513488945&amp;postID=1891669169864780233&amp;target=email" target="_blank" title="Email This"><span class="share-button-link-text">Email This</span></a><a class="goog-inline-block share-button sb-blog" href="https://www.blogger.com/share-post.g?blogID=7549705215513488945&amp;postID=1891669169864780233&amp;target=blog" onclick="window.open(this.href, &quot;_blank&quot;, &quot;height=270,width=475&quot;); return false;" target="_blank" title="BlogThis!"><span class="share-button-link-text">BlogThis!</span></a><a class="goog-inline-block share-button sb-twitter" href="https://www.blogger.com/share-post.g?blogID=7549705215513488945&amp;postID=1891669169864780233&amp;target=twitter" target="_blank" title="Share to Twitter"><span class="share-button-link-text">Share to Twitter</span></a><a class="goog-inline-block share-button sb-facebook" href="https://www.blogger.com/share-post.g?blogID=7549705215513488945&amp;postID=1891669169864780233&amp;target=facebook" onclick="window.open(this.href, &quot;_blank&quot;, &quot;height=430,width=640&quot;); return false;" target="_blank" title="Share to Facebook"><span class="share-button-link-text">Share to Facebook</span></a><div class="goog-inline-block dummy-container"><g:plusone source="blogger:blog:plusone" href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html" size="medium" width="300" annotation="inline"></g:plusone></div>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div class="post-location post-locationpbt">
+</div>
+<div class="related-postbwrap" id="bpostrelated-post"><h4>Related Posts:</h4><ul class="related-post-style-2"><li><img alt="" class="related-post-item-thumbnail" src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/esp32wota(1).png" width="80" height="80"><a class="related-post-item-title" title="Demo 36: Firmware update OTA via ESP Http Web Server" href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html">Demo 36: Firmware update OTA via ESP Http Web Server</a><span class="related-post-item-summary"><span class="related-post-item-summary-text">
+1. Introduction
+In Demo 34: firmware update OTA for ESP32 using HTTP and sdcard and Demo 35: firmware update OTA for ESP32 directly using HTTP, I sho…</span> <a href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html" class="related-post-item-more">Read More</a></span><span style="display:block;clear:both;"></span></li><li><img alt="" class="related-post-item-thumbnail" src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/httpota.png" width="80" height="80"><a class="related-post-item-title" title="Demo 34: firmware update OTA for ESP32 using HTTP and sdcard" href="http://www.iotsharing.com/2017/11/firmware-update-ota-for-esp32-using-http-sdcard.html">Demo 34: firmware update OTA for ESP32 using HTTP and sdcard</a><span class="related-post-item-summary"><span class="related-post-item-summary-text">
+1. Introduction
+In Demo 16, we knew how to update firmware OTA for a batch of Arduino ESP32. Actually, the method behind that tutorial is UDP protoco…</span> <a href="http://www.iotsharing.com/2017/11/firmware-update-ota-for-esp32-using-http-sdcard.html" class="related-post-item-more">Read More</a></span><span style="display:block;clear:both;"></span></li><li><img alt="" class="related-post-item-thumbnail" src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/httpota(1).png" width="80" height="80"><a class="related-post-item-title" title="Demo 35: firmware update OTA for ESP32 directly using HTTP" href="http://www.iotsharing.com/2017/11/firmware-update-ota-for-esp32-using-http.html">Demo 35: firmware update OTA for ESP32 directly using HTTP</a><span class="related-post-item-summary"><span class="related-post-item-summary-text">
+1. Introduction
+This tutorial is similar to Demo 34 but without using sdcard. It means firmware will be flashed to ESP directly from HTTP downloading…</span> <a href="http://www.iotsharing.com/2017/11/firmware-update-ota-for-esp32-using-http.html" class="related-post-item-more">Read More</a></span><span style="display:block;clear:both;"></span></li></ul><span style="display:block;clear:both;"></span></div>
+<div style="clear: both;"></div>
+<script type="text/javascript">
+var labelArray = [
+          "Backend",
+      
+          "ESP32",
+      
+          "fota",
+      
+          "http",
+      
+          "Projects"
+      ];
+var relatedPostConfig = {
+      homePage: "http://www.iotsharing.com/",
+      widgetTitle: "<h4>Related Posts:</h4>",
+      numPosts: 5,
+      summaryLength: 150,
+      titleLength: "auto",
+      thumbnailSize: 80,
+      noImage: "http://1.bp.blogspot.com/-Xakmg4CGXnA/Uw_8uqsGlwI/AAAAAAAALjg/AdRZNmOJpIA/s1600/no-img.png",
+      containerId: "bpostrelated-post",
+      newTabLink: false,
+      moreText: "Read More",
+      widgetStyle: 2,
+      callBack: function() {}
+};
+</script>
+<script type="text/javascript">
+//<![CDATA[
+
+/*! Related Post Widget for Blogger by Taufik Nurrohman => http://gplus.to/tovic */
+var randomRelatedIndex,showRelatedPost;(function(n,m,k){var d={widgetTitle:"<h4>Artikel Terkait:</h4>",widgetStyle:1,homePage:"http://www.dte.web.id",numPosts:7,summaryLength:370,titleLength:"auto",thumbnailSize:72,noImage:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAA3NCSVQICAjb4U/gAAAADElEQVQImWOor68HAAL+AX7vOF2TAAAAAElFTkSuQmCC",containerId:"related-post",newTabLink:false,moreText:"Baca Selengkapnya",callBack:function(){}};for(var f in relatedPostConfig){d[f]=(relatedPostConfig[f]=="undefined")?d[f]:relatedPostConfig[f]}var j=function(a){var b=m.createElement("script");b.type="text/javascript";b.src=a;k.appendChild(b)},o=function(b,a){return Math.floor(Math.random()*(a-b+1))+b},l=function(a){var p=a.length,c,b;if(p===0){return false}while(--p){c=Math.floor(Math.random()*(p+1));b=a[p];a[p]=a[c];a[c]=b}return a},e=(typeof labelArray=="object"&&labelArray.length>0)?"/-/"+l(labelArray)[0]:"",h=function(b){var c=b.feed.openSearch$totalResults.$t-d.numPosts,a=o(1,(c>0?c:1));j(d.homePage.replace(/\/$/,"")+"/feeds/posts/summary"+e+"?alt=json-in-script&orderby=updated&start-index="+a+"&max-results="+d.numPosts+"&callback=showRelatedPost")},g=function(z){var s=document.getElementById(d.containerId),x=l(z.feed.entry),A=d.widgetStyle,c=d.widgetTitle+'<ul class="related-post-style-'+A+'">',b=d.newTabLink?' target="_blank"':"",y='<span style="display:block;clear:both;"></span>',v,t,w,r,u;if(!s){return}for(var q=0;q<d.numPosts;q++){if(q==x.length){break}t=x[q].title.$t;w=(d.titleLength!=="auto"&&d.titleLength<t.length)?t.substring(0,d.titleLength)+"&hellip;":t;r=("media$thumbnail" in x[q]&&d.thumbnailSize!==false)?x[q].media$thumbnail.url.replace(/\/s[0-9]+(\-c)?/,"/s"+d.thumbnailSize+"-c"):d.noImage;u=("summary" in x[q]&&d.summaryLength>0)?x[q].summary.$t.replace(/<br ?\/?>/g," ").replace(/<.*?>/g,"").replace(/[<>]/g,"").substring(0,d.summaryLength)+"&hellip;":"";for(var p=0,a=x[q].link.length;p<a;p++){v=(x[q].link[p].rel=="alternate")?x[q].link[p].href:"#"}if(A==2){c+='<li><img alt="" class="related-post-item-thumbnail" src="'+r+'" width="'+d.thumbnailSize+'" height="'+d.thumbnailSize+'"><a class="related-post-item-title" title="'+t+'" href="'+v+'"'+b+">"+w+'</a><span class="related-post-item-summary"><span class="related-post-item-summary-text">'+u+'</span> <a href="'+v+'" class="related-post-item-more"'+b+">"+d.moreText+"</a></span>"+y+"</li>"}else{if(A==3||A==4){c+='<li class="related-post-item" tabindex="0"><a class="related-post-item-title" href="'+v+'"'+b+'><img alt="" class="related-post-item-thumbnail" src="'+r+'" width="'+d.thumbnailSize+'" height="'+d.thumbnailSize+'"></a><div class="related-post-item-tooltip"><a class="related-post-item-title" title="'+t+'" href="'+v+'"'+b+">"+w+"</a></div>"+y+"</li>"}else{if(A==5){c+='<li class="related-post-item" tabindex="0"><a class="related-post-item-wrapper" href="'+v+'" title="'+t+'"'+b+'><img alt="" class="related-post-item-thumbnail" src="'+r+'" width="'+d.thumbnailSize+'" height="'+d.thumbnailSize+'"><span class="related-post-item-tooltip">'+w+"</span></a>"+y+"</li>"}else{if(A==6){c+='<li><a class="related-post-item-title" title="'+t+'" href="'+v+'"'+b+">"+w+'</a><div class="related-post-item-tooltip"><img alt="" class="related-post-item-thumbnail" src="'+r+'" width="'+d.thumbnailSize+'" height="'+d.thumbnailSize+'"><span class="related-post-item-summary"><span class="related-post-item-summary-text">'+u+"</span></span>"+y+"</div></li>"}else{c+='<li><a title="'+t+'" href="'+v+'"'+b+">"+w+"</a></li>"}}}}}s.innerHTML=c+="</ul>"+y;d.callBack()};randomRelatedIndex=h;showRelatedPost=g;j(d.homePage.replace(/\/$/,"")+"/feeds/posts/summary"+e+"?alt=json-in-script&orderby=updated&max-results=0&callback=randomRelatedIndex")})(window,document,document.getElementsByTagName("head")[0]);
+
+//]]>
+</script>
+</article>
+<div style="clear: both;"></div>
+<div class="blog-pager" id="blog-pager">
+<span id="blog-pager-newer-link">
+<a class="blog-pager-newer-link" href="http://www.iotsharing.com/2017/12/display-information-using-module-7-segment-LED-N-Digits.html" id="Blog1_blog-pager-newer-link" title="Newer Post">Newer Post</a>
+</span>
+<span id="blog-pager-older-link">
+<a class="blog-pager-older-link" href="http://www.iotsharing.com/2017/11/firmware-update-ota-for-esp32-using-http.html" id="Blog1_blog-pager-older-link" title="Older Post">Older Post</a>
+</span>
+<a class="home-link" href="http://www.iotsharing.com/">Home</a>
+</div>
+<div class="clear"></div>
+<div class="comments" id="comments">
+<a name="comments"></a>
+<h4>
+30
+comments:
+        
+</h4>
+<div id="Blog1_comments-block-wrapper">
+<dl class="avatar-comment-indent" id="comments-block">
+<dt class="comment-author " id="c3281216520025710256">
+<a name="c3281216520025710256"></a>
+<div class="avatar-image-container avatar-stock"><span dir="ltr"><a href="https://www.blogger.com/profile/11858624340964306668" target="" rel="nofollow" onclick="" class="avatar-hovercard" id="av-3281216520025710256-11858624340964306668"><img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/unnamed.png" width="35" height="35" alt="" title="Reiner Rosin">
+
+</a></span></div>
+<a href="https://www.blogger.com/profile/11858624340964306668" rel="nofollow">Reiner Rosin</a>
+said...
+</dt>
+<dd class="comment-body" id="Blog1_cmt-3281216520025710256">
+<p>
+Great Work! Is there any way to obtain the total size of the file within the callback function? I like to build a progress bar<br><br>Regards Reiner
+</p>
+</dd>
+<dd class="comment-footer">
+<span class="comment-timestamp">
+<a href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html?showComment=1518991186825#c3281216520025710256" title="comment permalink">
+February 18, 2018 at 1:59 PM
+</a>
+<span class="item-control blog-admin pid-1717034619">
+<a class="comment-delete" href="https://www.blogger.com/delete-comment.g?blogID=7549705215513488945&amp;postID=3281216520025710256" title="Delete Comment">
+<img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/icon_delete13.gif">
+</a>
+</span>
+</span>
+</dd>
+<dt class="comment-author blog-author" id="c6280815470575169334">
+<a name="c6280815470575169334"></a>
+<div class="avatar-image-container vcard"><span dir="ltr"><a href="https://www.blogger.com/profile/00459942306964625402" target="" rel="nofollow" onclick="" class="avatar-hovercard" id="av-6280815470575169334-00459942306964625402"><img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/photo.jpg" width="35" height="35" class="delayLoad" style="" longdesc="//lh3.googleusercontent.com/-k4dCJVaugDI/AAAAAAAAAAI/AAAAAAAAEAk/Lvv-YTR2jgM/s35-c/photo.jpg" alt="" title="iotsharing dotcom">
+
+<noscript><img src="//lh3.googleusercontent.com/-k4dCJVaugDI/AAAAAAAAAAI/AAAAAAAAEAk/Lvv-YTR2jgM/s35-c/photo.jpg" width="35" height="35" class="photo" alt=""></noscript></a></span></div>
+<a href="https://www.blogger.com/profile/00459942306964625402" rel="nofollow">iotsharing dotcom</a>
+said...
+</dt>
+<dd class="comment-body" id="Blog1_cmt-6280815470575169334">
+<p>
+Hi friend<br><br>yes, it is in HTTPUpload&amp; upload. using upload.totalSize<br><br>Regards
+</p>
+</dd>
+<dd class="comment-footer">
+<span class="comment-timestamp">
+<a href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html?showComment=1519030787076#c6280815470575169334" title="comment permalink">
+February 19, 2018 at 12:59 AM
+</a>
+<span class="item-control blog-admin pid-1298951643">
+<a class="comment-delete" href="https://www.blogger.com/delete-comment.g?blogID=7549705215513488945&amp;postID=6280815470575169334" title="Delete Comment">
+<img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/icon_delete13.gif">
+</a>
+</span>
+</span>
+</dd>
+<dt class="comment-author " id="c2437418480988935097">
+<a name="c2437418480988935097"></a>
+<div class="avatar-image-container avatar-stock"><span dir="ltr"><a href="https://www.blogger.com/profile/11858624340964306668" target="" rel="nofollow" onclick="" class="avatar-hovercard" id="av-2437418480988935097-11858624340964306668"><img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/unnamed.png" width="35" height="35" alt="" title="Reiner Rosin">
+
+</a></span></div>
+<a href="https://www.blogger.com/profile/11858624340964306668" rel="nofollow">Reiner Rosin</a>
+said...
+</dt>
+<dd class="comment-body" id="Blog1_cmt-2437418480988935097">
+<p>
+Thanks for your reply! I am using upload.totalSize already, but it gives me only the amount of data already transferred. To calculate the percentage I need to know the final size while transferring<br><br>Regards Reiner
+</p>
+</dd>
+<dd class="comment-footer">
+<span class="comment-timestamp">
+<a href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html?showComment=1519039335088#c2437418480988935097" title="comment permalink">
+February 19, 2018 at 3:22 AM
+</a>
+<span class="item-control blog-admin pid-1717034619">
+<a class="comment-delete" href="https://www.blogger.com/delete-comment.g?blogID=7549705215513488945&amp;postID=2437418480988935097" title="Delete Comment">
+<img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/icon_delete13.gif">
+</a>
+</span>
+</span>
+</dd>
+<dt class="comment-author blog-author" id="c9022682189704301945">
+<a name="c9022682189704301945"></a>
+<div class="avatar-image-container vcard"><span dir="ltr"><a href="https://www.blogger.com/profile/00459942306964625402" target="" rel="nofollow" onclick="" class="avatar-hovercard" id="av-9022682189704301945-00459942306964625402"><img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/photo.jpg" width="35" height="35" class="delayLoad" style="" longdesc="//lh3.googleusercontent.com/-k4dCJVaugDI/AAAAAAAAAAI/AAAAAAAAEAk/Lvv-YTR2jgM/s35-c/photo.jpg" alt="" title="iotsharing dotcom">
+
+<noscript><img src="//lh3.googleusercontent.com/-k4dCJVaugDI/AAAAAAAAAAI/AAAAAAAAEAk/Lvv-YTR2jgM/s35-c/photo.jpg" width="35" height="35" class="photo" alt=""></noscript></a></span></div>
+<a href="https://www.blogger.com/profile/00459942306964625402" rel="nofollow">iotsharing dotcom</a>
+said...
+</dt>
+<dd class="comment-body" id="Blog1_cmt-9022682189704301945">
+<p>
+Hi friend<br><br>because in uploading, server do not use content length to know whether the file is uploaded completely so it does not care about that info. <br>So you can create a text field with the size of the file in the html form. when you press the upload button this text field will also be submitted to server.<br><br>:)<br>Regards
+</p>
+</dd>
+<dd class="comment-footer">
+<span class="comment-timestamp">
+<a href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html?showComment=1519050689937#c9022682189704301945" title="comment permalink">
+February 19, 2018 at 6:31 AM
+</a>
+<span class="item-control blog-admin pid-1298951643">
+<a class="comment-delete" href="https://www.blogger.com/delete-comment.g?blogID=7549705215513488945&amp;postID=9022682189704301945" title="Delete Comment">
+<img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/icon_delete13.gif">
+</a>
+</span>
+</span>
+</dd>
+<dt class="comment-author " id="c1227596711382645702">
+<a name="c1227596711382645702"></a>
+<div class="avatar-image-container avatar-stock"><span dir="ltr"><a href="https://www.blogger.com/profile/11858624340964306668" target="" rel="nofollow" onclick="" class="avatar-hovercard" id="av-1227596711382645702-11858624340964306668"><img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/unnamed.png" width="35" height="35" alt="" title="Reiner Rosin">
+
+</a></span></div>
+<a href="https://www.blogger.com/profile/11858624340964306668" rel="nofollow">Reiner Rosin</a>
+said...
+</dt>
+<dd class="comment-body" id="Blog1_cmt-1227596711382645702">
+<p>
+Using a text field is a funny idea ;-). I found a way now reading the size from the DOM tree and passing it as an additional parameter.<br><br>I found one strange behavior when uploading OTA: your ESP32 code uses about 60 seconds for uploading 600 KB, whereas a similar ESP8266 code transfers much faster (about 5 seconds for 300 KB). Do you have any idea what the bottleneck is? I disabled the code moving the received data to the flash already as well as the JavaScript library with no change. Even increasing the buffer size from 2048 bytes to a larger number did only improve the speed around 10% only.<br><br>Regards Reiner
+</p>
+</dd>
+<dd class="comment-footer">
+<span class="comment-timestamp">
+<a href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html?showComment=1519160938527#c1227596711382645702" title="comment permalink">
+February 20, 2018 at 1:08 PM
+</a>
+<span class="item-control blog-admin pid-1717034619">
+<a class="comment-delete" href="https://www.blogger.com/delete-comment.g?blogID=7549705215513488945&amp;postID=1227596711382645702" title="Delete Comment">
+<img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/icon_delete13.gif">
+</a>
+</span>
+</span>
+</dd>
+<dt class="comment-author blog-author" id="c1003590972484593343">
+<a name="c1003590972484593343"></a>
+<div class="avatar-image-container vcard"><span dir="ltr"><a href="https://www.blogger.com/profile/00459942306964625402" target="" rel="nofollow" onclick="" class="avatar-hovercard" id="av-1003590972484593343-00459942306964625402"><img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/photo.jpg" width="35" height="35" class="delayLoad" style="" longdesc="//lh3.googleusercontent.com/-k4dCJVaugDI/AAAAAAAAAAI/AAAAAAAAEAk/Lvv-YTR2jgM/s35-c/photo.jpg" alt="" title="iotsharing dotcom">
+
+<noscript><img src="//lh3.googleusercontent.com/-k4dCJVaugDI/AAAAAAAAAAI/AAAAAAAAEAk/Lvv-YTR2jgM/s35-c/photo.jpg" width="35" height="35" class="photo" alt=""></noscript></a></span></div>
+<a href="https://www.blogger.com/profile/00459942306964625402" rel="nofollow">iotsharing dotcom</a>
+said...
+</dt>
+<dd class="comment-body" id="Blog1_cmt-1003590972484593343">
+<p>
+:))). it is a general idea maybe in future you want to submit more data to server such as: md5, SW version, ... <br><br>This code I ported from ESP8266 so it is not optimized. I will check it soon.<br><br>Regards
+</p>
+</dd>
+<dd class="comment-footer">
+<span class="comment-timestamp">
+<a href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html?showComment=1519532928314#c1003590972484593343" title="comment permalink">
+February 24, 2018 at 8:28 PM
+</a>
+<span class="item-control blog-admin pid-1298951643">
+<a class="comment-delete" href="https://www.blogger.com/delete-comment.g?blogID=7549705215513488945&amp;postID=1003590972484593343" title="Delete Comment">
+<img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/icon_delete13.gif">
+</a>
+</span>
+</span>
+</dd>
+<dt class="comment-author " id="c910257312253726743">
+<a name="c910257312253726743"></a>
+<div class="avatar-image-container vcard"><span dir="ltr"><a href="https://www.blogger.com/profile/17822721926994356987" target="" rel="nofollow" onclick="" class="avatar-hovercard" id="av-910257312253726743-17822721926994356987"><img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/photo(1).jpg" width="35" height="35" class="delayLoad" style="" longdesc="//lh3.googleusercontent.com/-poBICWrDMBQ/AAAAAAAAAAI/AAAAAAAABTc/k7EBlsXHh9M/s35-c/photo.jpg" alt="" title="Javier Ema">
+
+<noscript><img src="//lh3.googleusercontent.com/-poBICWrDMBQ/AAAAAAAAAAI/AAAAAAAABTc/k7EBlsXHh9M/s35-c/photo.jpg" width="35" height="35" class="photo" alt=""></noscript></a></span></div>
+<a href="https://www.blogger.com/profile/17822721926994356987" rel="nofollow">Javier Ema</a>
+said...
+</dt>
+<dd class="comment-body" id="Blog1_cmt-910257312253726743">
+<p>
+Hello,<br><br>First of all, good work!. I have the OTA webserver woking on my ESP8266 with no problems at all. I am trying to do the same with the ESP32 with your code. Everything seems fine, I can access the upload page but once uploaded it doesn't seem to change the sketch. Am I missing something? I don't understand, the progress bar says it's 100% uploaded but after restart it goes into the same sketch. Please help.
+</p>
+</dd>
+<dd class="comment-footer">
+<span class="comment-timestamp">
+<a href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html?showComment=1519740519073#c910257312253726743" title="comment permalink">
+February 27, 2018 at 6:08 AM
+</a>
+<span class="item-control blog-admin pid-1550106271">
+<a class="comment-delete" href="https://www.blogger.com/delete-comment.g?blogID=7549705215513488945&amp;postID=910257312253726743" title="Delete Comment">
+<img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/icon_delete13.gif">
+</a>
+</span>
+</span>
+</dd>
+<dt class="comment-author blog-author" id="c4072068394920551137">
+<a name="c4072068394920551137"></a>
+<div class="avatar-image-container vcard"><span dir="ltr"><a href="https://www.blogger.com/profile/00459942306964625402" target="" rel="nofollow" onclick="" class="avatar-hovercard" id="av-4072068394920551137-00459942306964625402"><img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/photo.jpg" width="35" height="35" class="delayLoad" style="" longdesc="//lh3.googleusercontent.com/-k4dCJVaugDI/AAAAAAAAAAI/AAAAAAAAEAk/Lvv-YTR2jgM/s35-c/photo.jpg" alt="" title="iotsharing dotcom">
+
+<noscript><img src="//lh3.googleusercontent.com/-k4dCJVaugDI/AAAAAAAAAAI/AAAAAAAAEAk/Lvv-YTR2jgM/s35-c/photo.jpg" width="35" height="35" class="photo" alt=""></noscript></a></span></div>
+<a href="https://www.blogger.com/profile/00459942306964625402" rel="nofollow">iotsharing dotcom</a>
+said...
+</dt>
+<dd class="comment-body" id="Blog1_cmt-4072068394920551137">
+<p>
+Hi,<br><br>Tell me steps that you did?<br><br>You should have 2 sketch: 1 LED blinky (for updating) and the sketch in the post.<br><br>Regards,<br>Tuan
+</p>
+</dd>
+<dd class="comment-footer">
+<span class="comment-timestamp">
+<a href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html?showComment=1519807394463#c4072068394920551137" title="comment permalink">
+February 28, 2018 at 12:43 AM
+</a>
+<span class="item-control blog-admin pid-1298951643">
+<a class="comment-delete" href="https://www.blogger.com/delete-comment.g?blogID=7549705215513488945&amp;postID=4072068394920551137" title="Delete Comment">
+<img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/icon_delete13.gif">
+</a>
+</span>
+</span>
+</dd>
+<dt class="comment-author " id="c4407592962472463690">
+<a name="c4407592962472463690"></a>
+<div class="avatar-image-container avatar-stock"><span dir="ltr"><a href="https://www.blogger.com/profile/11858624340964306668" target="" rel="nofollow" onclick="" class="avatar-hovercard" id="av-4407592962472463690-11858624340964306668"><img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/unnamed.png" width="35" height="35" alt="" title="Reiner Rosin">
+
+</a></span></div>
+<a href="https://www.blogger.com/profile/11858624340964306668" rel="nofollow">Reiner Rosin</a>
+said...
+</dt>
+<dd class="comment-body" id="Blog1_cmt-4407592962472463690">
+<span class="deleted-comment">This comment has been removed by the author.</span>
+</dd>
+<dd class="comment-footer">
+<span class="comment-timestamp">
+<a href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html?showComment=1519814113680#c4407592962472463690" title="comment permalink">
+February 28, 2018 at 2:35 AM
+</a>
+<span class="item-control blog-admin ">
+<a class="comment-delete" href="https://www.blogger.com/delete-comment.g?blogID=7549705215513488945&amp;postID=4407592962472463690" title="Delete Comment">
+<img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/icon_delete13.gif">
+</a>
+</span>
+</span>
+</dd>
+<dt class="comment-author " id="c3448995130009963211">
+<a name="c3448995130009963211"></a>
+<div class="avatar-image-container avatar-stock"><span dir="ltr"><a href="https://www.blogger.com/profile/11858624340964306668" target="" rel="nofollow" onclick="" class="avatar-hovercard" id="av-3448995130009963211-11858624340964306668"><img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/unnamed.png" width="35" height="35" alt="" title="Reiner Rosin">
+
+</a></span></div>
+<a href="https://www.blogger.com/profile/11858624340964306668" rel="nofollow">Reiner Rosin</a>
+said...
+</dt>
+<dd class="comment-body" id="Blog1_cmt-3448995130009963211">
+<p>
+@Javier Ema: Do you force the reboot manually or do you wait until the device reboots automatically? If you reboot manually, the sketch upload might not be finished. In my environment the web browser reaches 100% after 45 seconds, but data is still received for nearly 20 seconds more.<br><br>Regards Reiner
+</p>
+</dd>
+<dd class="comment-footer">
+<span class="comment-timestamp">
+<a href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html?showComment=1519814197794#c3448995130009963211" title="comment permalink">
+February 28, 2018 at 2:36 AM
+</a>
+<span class="item-control blog-admin pid-1717034619">
+<a class="comment-delete" href="https://www.blogger.com/delete-comment.g?blogID=7549705215513488945&amp;postID=3448995130009963211" title="Delete Comment">
+<img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/icon_delete13.gif">
+</a>
+</span>
+</span>
+</dd>
+<dt class="comment-author " id="c1582769812599113106">
+<a name="c1582769812599113106"></a>
+<div class="avatar-image-container vcard"><span dir="ltr"><a href="https://www.blogger.com/profile/17822721926994356987" target="" rel="nofollow" onclick="" class="avatar-hovercard" id="av-1582769812599113106-17822721926994356987"><img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/blank.gif" width="35" height="35" class="delayLoad" style="" longdesc="//lh3.googleusercontent.com/-poBICWrDMBQ/AAAAAAAAAAI/AAAAAAAABTc/k7EBlsXHh9M/s35-c/photo.jpg" alt="" title="Javier Ema">
+
+<noscript><img src="//lh3.googleusercontent.com/-poBICWrDMBQ/AAAAAAAAAAI/AAAAAAAABTc/k7EBlsXHh9M/s35-c/photo.jpg" width="35" height="35" class="photo" alt=""></noscript></a></span></div>
+<a href="https://www.blogger.com/profile/17822721926994356987" rel="nofollow">Javier Ema</a>
+said...
+</dt>
+<dd class="comment-body" id="Blog1_cmt-1582769812599113106">
+<p>
+I leave it to restart on its own but nothing changes, it stays with the same sketch. I will try again now
+</p>
+</dd>
+<dd class="comment-footer">
+<span class="comment-timestamp">
+<a href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html?showComment=1519822990568#c1582769812599113106" title="comment permalink">
+February 28, 2018 at 5:03 AM
+</a>
+<span class="item-control blog-admin pid-1550106271">
+<a class="comment-delete" href="https://www.blogger.com/delete-comment.g?blogID=7549705215513488945&amp;postID=1582769812599113106" title="Delete Comment">
+<img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/icon_delete13.gif">
+</a>
+</span>
+</span>
+</dd>
+<dt class="comment-author " id="c1153623545102940119">
+<a name="c1153623545102940119"></a>
+<div class="avatar-image-container vcard"><span dir="ltr"><a href="https://www.blogger.com/profile/17822721926994356987" target="" rel="nofollow" onclick="" class="avatar-hovercard" id="av-1153623545102940119-17822721926994356987"><img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/blank.gif" width="35" height="35" class="delayLoad" style="" longdesc="//lh3.googleusercontent.com/-poBICWrDMBQ/AAAAAAAAAAI/AAAAAAAABTc/k7EBlsXHh9M/s35-c/photo.jpg" alt="" title="Javier Ema">
+
+<noscript><img src="//lh3.googleusercontent.com/-poBICWrDMBQ/AAAAAAAAAAI/AAAAAAAABTc/k7EBlsXHh9M/s35-c/photo.jpg" width="35" height="35" class="photo" alt=""></noscript></a></span></div>
+<a href="https://www.blogger.com/profile/17822721926994356987" rel="nofollow">Javier Ema</a>
+said...
+</dt>
+<dd class="comment-body" id="Blog1_cmt-1153623545102940119">
+<p>
+It connects again to the wifi as if nothing happens. I am using a NodeMCU ESP-32S
+</p>
+</dd>
+<dd class="comment-footer">
+<span class="comment-timestamp">
+<a href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html?showComment=1519823565322#c1153623545102940119" title="comment permalink">
+February 28, 2018 at 5:12 AM
+</a>
+<span class="item-control blog-admin pid-1550106271">
+<a class="comment-delete" href="https://www.blogger.com/delete-comment.g?blogID=7549705215513488945&amp;postID=1153623545102940119" title="Delete Comment">
+<img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/icon_delete13.gif">
+</a>
+</span>
+</span>
+</dd>
+<dt class="comment-author " id="c8407159551845198551">
+<a name="c8407159551845198551"></a>
+<div class="avatar-image-container avatar-stock"><span dir="ltr"><a href="https://www.blogger.com/profile/11858624340964306668" target="" rel="nofollow" onclick="" class="avatar-hovercard" id="av-8407159551845198551-11858624340964306668"><img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/unnamed.png" width="35" height="35" alt="" title="Reiner Rosin">
+
+</a></span></div>
+<a href="https://www.blogger.com/profile/11858624340964306668" rel="nofollow">Reiner Rosin</a>
+said...
+</dt>
+<dd class="comment-body" id="Blog1_cmt-8407159551845198551">
+<p>
+For further investigation you might add additional debug code here:<br><br>    server.on("/update", HTTP_POST, [](){<br>      **** HERE ADD OUTPUT OF Update.hasError() TO SERIAL ***<br>      server.sendHeader("Connection", "close");<br>      server.send(200, "text/plain", (Update.hasError())?"FAIL":"OK");<br>      esp_wifi_wps_disable(); ESP.restart();<br><br>I can consider two reasons for your problem:<br>   [1] flash size. Try to switch to board "ESP32 DEV Module", this let's you change flash size<br>   [2] outdated environment - maybe the ESP32 package you use is not up to date or some other libraries interfere with your installation<br><br>I am using this code (with large modifications, but the basic structure is still the same) with many ESP32 boards and it's working (except the slow speed) very well.<br><br>Regards Reiner
+</p>
+</dd>
+<dd class="comment-footer">
+<span class="comment-timestamp">
+<a href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html?showComment=1519826552454#c8407159551845198551" title="comment permalink">
+February 28, 2018 at 6:02 AM
+</a>
+<span class="item-control blog-admin pid-1717034619">
+<a class="comment-delete" href="https://www.blogger.com/delete-comment.g?blogID=7549705215513488945&amp;postID=8407159551845198551" title="Delete Comment">
+<img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/icon_delete13.gif">
+</a>
+</span>
+</span>
+</dd>
+<dt class="comment-author " id="c1898222803636002006">
+<a name="c1898222803636002006"></a>
+<div class="avatar-image-container vcard"><span dir="ltr"><a href="https://www.blogger.com/profile/17822721926994356987" target="" rel="nofollow" onclick="" class="avatar-hovercard" id="av-1898222803636002006-17822721926994356987"><img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/blank.gif" width="35" height="35" class="delayLoad" style="" longdesc="//lh3.googleusercontent.com/-poBICWrDMBQ/AAAAAAAAAAI/AAAAAAAABTc/k7EBlsXHh9M/s35-c/photo.jpg" alt="" title="Javier Ema">
+
+<noscript><img src="//lh3.googleusercontent.com/-poBICWrDMBQ/AAAAAAAAAAI/AAAAAAAABTc/k7EBlsXHh9M/s35-c/photo.jpg" width="35" height="35" class="photo" alt=""></noscript></a></span></div>
+<a href="https://www.blogger.com/profile/17822721926994356987" rel="nofollow">Javier Ema</a>
+said...
+</dt>
+<dd class="comment-body" id="Blog1_cmt-1898222803636002006">
+<p>
+Hello,<br><br>I have removed the ESP package I had and installed again. I have tried on a Mac and windows and changed the flash to 2M (8M) with no success. I have also added the line you suggested but nothing came out in the serial monitor, just the same as usual. The device reboots but always comes back to the original sketch. I have also tried with a different ESP32 to see if that was the problem with no success. I really don't know what else to do. I guess the browser has nothing to do.
+</p>
+</dd>
+<dd class="comment-footer">
+<span class="comment-timestamp">
+<a href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html?showComment=1519863593312#c1898222803636002006" title="comment permalink">
+February 28, 2018 at 4:19 PM
+</a>
+<span class="item-control blog-admin pid-1550106271">
+<a class="comment-delete" href="https://www.blogger.com/delete-comment.g?blogID=7549705215513488945&amp;postID=1898222803636002006" title="Delete Comment">
+<img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/icon_delete13.gif">
+</a>
+</span>
+</span>
+</dd>
+<dt class="comment-author " id="c6949856100009890696">
+<a name="c6949856100009890696"></a>
+<div class="avatar-image-container vcard"><span dir="ltr"><a href="https://www.blogger.com/profile/17822721926994356987" target="" rel="nofollow" onclick="" class="avatar-hovercard" id="av-6949856100009890696-17822721926994356987"><img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/blank.gif" width="35" height="35" class="delayLoad" style="" longdesc="//lh3.googleusercontent.com/-poBICWrDMBQ/AAAAAAAAAAI/AAAAAAAABTc/k7EBlsXHh9M/s35-c/photo.jpg" alt="" title="Javier Ema">
+
+<noscript><img src="//lh3.googleusercontent.com/-poBICWrDMBQ/AAAAAAAAAAI/AAAAAAAABTc/k7EBlsXHh9M/s35-c/photo.jpg" width="35" height="35" class="photo" alt=""></noscript></a></span></div>
+<a href="https://www.blogger.com/profile/17822721926994356987" rel="nofollow">Javier Ema</a>
+said...
+</dt>
+<dd class="comment-body" id="Blog1_cmt-6949856100009890696">
+<p>
+do you have any other code I can try? thanks anyway
+</p>
+</dd>
+<dd class="comment-footer">
+<span class="comment-timestamp">
+<a href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html?showComment=1519863666501#c6949856100009890696" title="comment permalink">
+February 28, 2018 at 4:21 PM
+</a>
+<span class="item-control blog-admin pid-1550106271">
+<a class="comment-delete" href="https://www.blogger.com/delete-comment.g?blogID=7549705215513488945&amp;postID=6949856100009890696" title="Delete Comment">
+<img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/icon_delete13.gif">
+</a>
+</span>
+</span>
+</dd>
+<dt class="comment-author blog-author" id="c3809972698127525868">
+<a name="c3809972698127525868"></a>
+<div class="avatar-image-container vcard"><span dir="ltr"><a href="https://www.blogger.com/profile/00459942306964625402" target="" rel="nofollow" onclick="" class="avatar-hovercard" id="av-3809972698127525868-00459942306964625402"><img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/blank.gif" width="35" height="35" class="delayLoad" style="" longdesc="//lh3.googleusercontent.com/-k4dCJVaugDI/AAAAAAAAAAI/AAAAAAAAEAk/Lvv-YTR2jgM/s35-c/photo.jpg" alt="" title="iotsharing dotcom">
+
+<noscript><img src="//lh3.googleusercontent.com/-k4dCJVaugDI/AAAAAAAAAAI/AAAAAAAAEAk/Lvv-YTR2jgM/s35-c/photo.jpg" width="35" height="35" class="photo" alt=""></noscript></a></span></div>
+<a href="https://www.blogger.com/profile/00459942306964625402" rel="nofollow">iotsharing dotcom</a>
+said...
+</dt>
+<dd class="comment-body" id="Blog1_cmt-3809972698127525868">
+<p>
+Hi<br><br>I used this module: <br>https://vi.aliexpress.com/item/ESP32-Development-Board-WiFi-Bluetooth-Ultra-Low-Power-Consumption-Dual-Cores-ESP-32-ESP-32S/32799057508.html<br><br>and configurations:<br>http://www.iotsharing.com/2017/05/blinky-hello-world-on-arduino-esp32.html<br><br>Hope it help
+</p>
+</dd>
+<dd class="comment-footer">
+<span class="comment-timestamp">
+<a href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html?showComment=1519876590384#c3809972698127525868" title="comment permalink">
+February 28, 2018 at 7:56 PM
+</a>
+<span class="item-control blog-admin pid-1298951643">
+<a class="comment-delete" href="https://www.blogger.com/delete-comment.g?blogID=7549705215513488945&amp;postID=3809972698127525868" title="Delete Comment">
+<img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/icon_delete13.gif">
+</a>
+</span>
+</span>
+</dd>
+<dt class="comment-author blog-author" id="c8704364917469208709">
+<a name="c8704364917469208709"></a>
+<div class="avatar-image-container vcard"><span dir="ltr"><a href="https://www.blogger.com/profile/00459942306964625402" target="" rel="nofollow" onclick="" class="avatar-hovercard" id="av-8704364917469208709-00459942306964625402"><img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/blank.gif" width="35" height="35" class="delayLoad" style="" longdesc="//lh3.googleusercontent.com/-k4dCJVaugDI/AAAAAAAAAAI/AAAAAAAAEAk/Lvv-YTR2jgM/s35-c/photo.jpg" alt="" title="iotsharing dotcom">
+
+<noscript><img src="//lh3.googleusercontent.com/-k4dCJVaugDI/AAAAAAAAAAI/AAAAAAAAEAk/Lvv-YTR2jgM/s35-c/photo.jpg" width="35" height="35" class="photo" alt=""></noscript></a></span></div>
+<a href="https://www.blogger.com/profile/00459942306964625402" rel="nofollow">iotsharing dotcom</a>
+said...
+</dt>
+<dd class="comment-body" id="Blog1_cmt-8704364917469208709">
+<p>
+Hi<br><br>1 user faced the same problem with you. And he said that he re-downloaded the library and it works.<br><br>Regards
+</p>
+</dd>
+<dd class="comment-footer">
+<span class="comment-timestamp">
+<a href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html?showComment=1519959863815#c8704364917469208709" title="comment permalink">
+March 1, 2018 at 7:04 PM
+</a>
+<span class="item-control blog-admin pid-1298951643">
+<a class="comment-delete" href="https://www.blogger.com/delete-comment.g?blogID=7549705215513488945&amp;postID=8704364917469208709" title="Delete Comment">
+<img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/icon_delete13.gif">
+</a>
+</span>
+</span>
+</dd>
+<dt class="comment-author " id="c9063731363004330466">
+<a name="c9063731363004330466"></a>
+<div class="avatar-image-container avatar-stock"><span dir="ltr"><a href="https://www.blogger.com/profile/11858624340964306668" target="" rel="nofollow" onclick="" class="avatar-hovercard" id="av-9063731363004330466-11858624340964306668"><img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/unnamed.png" width="35" height="35" alt="" title="Reiner Rosin">
+
+</a></span></div>
+<a href="https://www.blogger.com/profile/11858624340964306668" rel="nofollow">Reiner Rosin</a>
+said...
+</dt>
+<dd class="comment-body" id="Blog1_cmt-9063731363004330466">
+<p>
+Suggestion for further troubleshooting: try to find out, whether the new firmware gets uploaded or not.<br><br>First, disable ESP.restart() in the server.on("/update"....  routine. You should see the debug output now of "Update.hasError()"<br><br>Second, trace the incoming of 2K packages in the "} else if (upload.status == UPLOAD_FILE_WRITE) {" section: add Serial.println(upload.totalSize); to the code<br><br>Regards Reiner
+</p>
+</dd>
+<dd class="comment-footer">
+<span class="comment-timestamp">
+<a href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html?showComment=1519987916543#c9063731363004330466" title="comment permalink">
+March 2, 2018 at 2:51 AM
+</a>
+<span class="item-control blog-admin pid-1717034619">
+<a class="comment-delete" href="https://www.blogger.com/delete-comment.g?blogID=7549705215513488945&amp;postID=9063731363004330466" title="Delete Comment">
+<img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/icon_delete13.gif">
+</a>
+</span>
+</span>
+</dd>
+<dt class="comment-author blog-author" id="c6033674767968027093">
+<a name="c6033674767968027093"></a>
+<div class="avatar-image-container vcard"><span dir="ltr"><a href="https://www.blogger.com/profile/00459942306964625402" target="" rel="nofollow" onclick="" class="avatar-hovercard" id="av-6033674767968027093-00459942306964625402"><img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/blank.gif" width="35" height="35" class="delayLoad" style="" longdesc="//lh3.googleusercontent.com/-k4dCJVaugDI/AAAAAAAAAAI/AAAAAAAAEAk/Lvv-YTR2jgM/s35-c/photo.jpg" alt="" title="iotsharing dotcom">
+
+<noscript><img src="//lh3.googleusercontent.com/-k4dCJVaugDI/AAAAAAAAAAI/AAAAAAAAEAk/Lvv-YTR2jgM/s35-c/photo.jpg" width="35" height="35" class="photo" alt=""></noscript></a></span></div>
+<a href="https://www.blogger.com/profile/00459942306964625402" rel="nofollow">iotsharing dotcom</a>
+said...
+</dt>
+<dd class="comment-body" id="Blog1_cmt-6033674767968027093">
+<p>
+Thanks Reiner.<br><br>Or you can write the firmwware to sdcard first.<br><br>Reards<br>
+</p>
+</dd>
+<dd class="comment-footer">
+<span class="comment-timestamp">
+<a href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html?showComment=1520001478263#c6033674767968027093" title="comment permalink">
+March 2, 2018 at 6:37 AM
+</a>
+<span class="item-control blog-admin pid-1298951643">
+<a class="comment-delete" href="https://www.blogger.com/delete-comment.g?blogID=7549705215513488945&amp;postID=6033674767968027093" title="Delete Comment">
+<img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/icon_delete13.gif">
+</a>
+</span>
+</span>
+</dd>
+<dt class="comment-author " id="c2601894123178751135">
+<a name="c2601894123178751135"></a>
+<div class="avatar-image-container avatar-stock"><span dir="ltr"><a href="https://www.blogger.com/profile/00218719464889186135" target="" rel="nofollow" onclick="" class="avatar-hovercard" id="av-2601894123178751135-00218719464889186135"><img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/unnamed.png" width="35" height="35" alt="" title="Kenny Thum">
+
+</a></span></div>
+<a href="https://www.blogger.com/profile/00218719464889186135" rel="nofollow">Kenny Thum</a>
+said...
+</dt>
+<dd class="comment-body" id="Blog1_cmt-2601894123178751135">
+<p>
+Hello Tuan,<br><br>Great work on the tutorial! Thumbs up to your effort.<br>I followed your code and tried it out, it work well.<br>Meanwhile, after I had successfully upload the led.bin via web browser, somehow I could not trigger back the http://esp32webupdate.local/ link anymore. It seems to execute the second sketch instead of the first one(http OTA)...Is this applicable to one-time-upload only? How do I go back to the first sketch to upload a new sketch to overwrite the existing second sketch?<br><br>Thanks once again.<br><br>Regards,<br>Kenny
+</p>
+</dd>
+<dd class="comment-footer">
+<span class="comment-timestamp">
+<a href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html?showComment=1520239727826#c2601894123178751135" title="comment permalink">
+March 5, 2018 at 12:48 AM
+</a>
+<span class="item-control blog-admin pid-528102954">
+<a class="comment-delete" href="https://www.blogger.com/delete-comment.g?blogID=7549705215513488945&amp;postID=2601894123178751135" title="Delete Comment">
+<img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/icon_delete13.gif">
+</a>
+</span>
+</span>
+</dd>
+<dt class="comment-author " id="c9102796160938393783">
+<a name="c9102796160938393783"></a>
+<div class="avatar-image-container avatar-stock"><span dir="ltr"><a href="https://www.blogger.com/profile/11858624340964306668" target="" rel="nofollow" onclick="" class="avatar-hovercard" id="av-9102796160938393783-11858624340964306668"><img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/unnamed.png" width="35" height="35" alt="" title="Reiner Rosin">
+
+</a></span></div>
+<a href="https://www.blogger.com/profile/11858624340964306668" rel="nofollow">Reiner Rosin</a>
+said...
+</dt>
+<dd class="comment-body" id="Blog1_cmt-9102796160938393783">
+<p>
+@Kenny Thum<br><br>Sure the first sketch gets overwritten when you upload the second sketch. One solution for this is to copy the OTA code into a library and include it in every sketch you use. So you can always overwrite any sketch with a new one.<br><br>Regards Reiner
+</p>
+</dd>
+<dd class="comment-footer">
+<span class="comment-timestamp">
+<a href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html?showComment=1520263116304#c9102796160938393783" title="comment permalink">
+March 5, 2018 at 7:18 AM
+</a>
+<span class="item-control blog-admin pid-1717034619">
+<a class="comment-delete" href="https://www.blogger.com/delete-comment.g?blogID=7549705215513488945&amp;postID=9102796160938393783" title="Delete Comment">
+<img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/icon_delete13.gif">
+</a>
+</span>
+</span>
+</dd>
+<dt class="comment-author blog-author" id="c3780975305153299647">
+<a name="c3780975305153299647"></a>
+<div class="avatar-image-container vcard"><span dir="ltr"><a href="https://www.blogger.com/profile/00459942306964625402" target="" rel="nofollow" onclick="" class="avatar-hovercard" id="av-3780975305153299647-00459942306964625402"><img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/blank.gif" width="35" height="35" class="delayLoad" style="" longdesc="//lh3.googleusercontent.com/-k4dCJVaugDI/AAAAAAAAAAI/AAAAAAAAEAk/Lvv-YTR2jgM/s35-c/photo.jpg" alt="" title="iotsharing dotcom">
+
+<noscript><img src="//lh3.googleusercontent.com/-k4dCJVaugDI/AAAAAAAAAAI/AAAAAAAAEAk/Lvv-YTR2jgM/s35-c/photo.jpg" width="35" height="35" class="photo" alt=""></noscript></a></span></div>
+<a href="https://www.blogger.com/profile/00459942306964625402" rel="nofollow">iotsharing dotcom</a>
+said...
+</dt>
+<dd class="comment-body" id="Blog1_cmt-3780975305153299647">
+<p>
+Hi Kenny, Reiner <br><br>Please following Reiner 's comment.<br><br>I am writting new blog: http://www.fossreview.com/ so I am  busy at this moment.<br><br>Thanks Reiner for your support :)<br><br>Regards,
+</p>
+</dd>
+<dd class="comment-footer">
+<span class="comment-timestamp">
+<a href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html?showComment=1520561069394#c3780975305153299647" title="comment permalink">
+March 8, 2018 at 6:04 PM
+</a>
+<span class="item-control blog-admin pid-1298951643">
+<a class="comment-delete" href="https://www.blogger.com/delete-comment.g?blogID=7549705215513488945&amp;postID=3780975305153299647" title="Delete Comment">
+<img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/icon_delete13.gif">
+</a>
+</span>
+</span>
+</dd>
+<dt class="comment-author " id="c1611760821287712421">
+<a name="c1611760821287712421"></a>
+<div class="avatar-image-container avatar-stock"><span dir="ltr"><a href="https://www.blogger.com/profile/00218719464889186135" target="" rel="nofollow" onclick="" class="avatar-hovercard" id="av-1611760821287712421-00218719464889186135"><img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/unnamed.png" width="35" height="35" alt="" title="Kenny Thum">
+
+</a></span></div>
+<a href="https://www.blogger.com/profile/00218719464889186135" rel="nofollow">Kenny Thum</a>
+said...
+</dt>
+<dd class="comment-body" id="Blog1_cmt-1611760821287712421">
+<p>
+@Reiner, thank you for your helping! I'm not very good at creating a new library from a sketch. Meanwhile, I just make a function to contain all the necessary line, and call the function out. It works good!<br><br>Btw, I ported Preference library into the sketch, which save the latest firmware name I had uploaded via HTTP. I can call out the saved preference and display the firmware name on the serial port, but I have no knowledge on javascript ::sad:: Could you help me to put a line on the javascript to show out the saved preference variable? In other words, how could we pass variable/message/string and show it on the HTTP? For example, can we display Serial.println message to the HTTP?<br><br>Thank you so much!<br><br>After this, the next step is trying to upload .bin file from different WAN network...which enable me upload my sketch to the board located far away. Looking forward to any advise from you.
+</p>
+</dd>
+<dd class="comment-footer">
+<span class="comment-timestamp">
+<a href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html?showComment=1520662339775#c1611760821287712421" title="comment permalink">
+March 9, 2018 at 10:12 PM
+</a>
+<span class="item-control blog-admin pid-528102954">
+<a class="comment-delete" href="https://www.blogger.com/delete-comment.g?blogID=7549705215513488945&amp;postID=1611760821287712421" title="Delete Comment">
+<img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/icon_delete13.gif">
+</a>
+</span>
+</span>
+</dd>
+<dt class="comment-author " id="c2966545602321842113">
+<a name="c2966545602321842113"></a>
+<div class="avatar-image-container avatar-stock"><span dir="ltr"><a href="https://www.blogger.com/profile/11858624340964306668" target="" rel="nofollow" onclick="" class="avatar-hovercard" id="av-2966545602321842113-11858624340964306668"><img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/unnamed.png" width="35" height="35" alt="" title="Reiner Rosin">
+
+</a></span></div>
+<a href="https://www.blogger.com/profile/11858624340964306668" rel="nofollow">Reiner Rosin</a>
+said...
+</dt>
+<dd class="comment-body" id="Blog1_cmt-2966545602321842113">
+<p>
+Some comments:<br><br>[1] By moving the code into a function you already made a library somehow. It's a small step to seperate .h and .cpp files and put in into the library foler for easy import into any sketch<br><br>[2] You don't need to know javascript for including a variable in the requested html page. You can concatenate the fixed parts of the page with the variable parts. You can even use String operations (which are a little bit critical because of memory fragmentation, but the ESP32 is much more save than the ESP8266 here). I recommend to reduce the serverIndex-page for your tests. The progress indication of the javascript code is a nice gadget, but not really necessary<br><br>[3] OTA updates over the internet are comfortable, but dangerous as well. Some helpful ideas:<br>   a) protect your ESP from DoS by changing port 80 to something unusual<br>   b) not use / or /upload.html or /update.html as index page, but something like ymca-omg-wtf.html<br>   c) protect your ESP from beeing overwritten by hacker kiddies. Add a secret parameter in an input field and verify it in the OTA code. You can even use variant codes with a challenge/response mechanism<br>   d) for be 100% tap-proof you can switch to https transfer<br><br>One more recommendation: you can improve your skills with learning by doing and sharing your thoughts with other beginners. Have a look at an internet forum (there are many of them) or some facebook groups.<br><br>Regards Reiner
+</p>
+</dd>
+<dd class="comment-footer">
+<span class="comment-timestamp">
+<a href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html?showComment=1520791616385#c2966545602321842113" title="comment permalink">
+March 11, 2018 at 11:06 AM
+</a>
+<span class="item-control blog-admin pid-1717034619">
+<a class="comment-delete" href="https://www.blogger.com/delete-comment.g?blogID=7549705215513488945&amp;postID=2966545602321842113" title="Delete Comment">
+<img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/icon_delete13.gif">
+</a>
+</span>
+</span>
+</dd>
+<dt class="comment-author " id="c1244621133979451111">
+<a name="c1244621133979451111"></a>
+<div class="avatar-image-container avatar-stock"><span dir="ltr"><a href="https://www.blogger.com/profile/00218719464889186135" target="" rel="nofollow" onclick="" class="avatar-hovercard" id="av-1244621133979451111-00218719464889186135"><img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/unnamed.png" width="35" height="35" alt="" title="Kenny Thum">
+
+</a></span></div>
+<a href="https://www.blogger.com/profile/00218719464889186135" rel="nofollow">Kenny Thum</a>
+said...
+</dt>
+<dd class="comment-body" id="Blog1_cmt-1244621133979451111">
+<p>
+@Reiner,<br><br>Wow!! Great work and thank you for your advises! Indeed, learning from the internet forum is one of the best way, and yet time consuming. Sometimes its either the information is not complete or the info is obsoleted.  
+</p>
+</dd>
+<dd class="comment-footer">
+<span class="comment-timestamp">
+<a href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html?showComment=1520821004498#c1244621133979451111" title="comment permalink">
+March 11, 2018 at 7:16 PM
+</a>
+<span class="item-control blog-admin pid-528102954">
+<a class="comment-delete" href="https://www.blogger.com/delete-comment.g?blogID=7549705215513488945&amp;postID=1244621133979451111" title="Delete Comment">
+<img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/icon_delete13.gif">
+</a>
+</span>
+</span>
+</dd>
+<dt class="comment-author " id="c2253249971976158571">
+<a name="c2253249971976158571"></a>
+<div class="avatar-image-container vcard"><span dir="ltr"><a href="https://www.blogger.com/profile/08388495802187362598" target="" rel="nofollow" onclick="" class="avatar-hovercard" id="av-2253249971976158571-08388495802187362598"><img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/blank.gif" width="35" height="35" class="delayLoad" style="" longdesc="//lh3.googleusercontent.com/-KmH-VlkMNBw/AAAAAAAAAAI/AAAAAAAAAFk/X7vbEg2tWcs/s35-c/photo.jpg" alt="" title="Paitoon Saelim">
+
+<noscript><img src="//lh3.googleusercontent.com/-KmH-VlkMNBw/AAAAAAAAAAI/AAAAAAAAAFk/X7vbEg2tWcs/s35-c/photo.jpg" width="35" height="35" class="photo" alt=""></noscript></a></span></div>
+<a href="https://www.blogger.com/profile/08388495802187362598" rel="nofollow">Paitoon Saelim</a>
+said...
+</dt>
+<dd class="comment-body" id="Blog1_cmt-2253249971976158571">
+<span class="deleted-comment">This comment has been removed by the author.</span>
+</dd>
+<dd class="comment-footer">
+<span class="comment-timestamp">
+<a href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html?showComment=1524569017330#c2253249971976158571" title="comment permalink">
+April 24, 2018 at 4:23 AM
+</a>
+<span class="item-control blog-admin ">
+<a class="comment-delete" href="https://www.blogger.com/delete-comment.g?blogID=7549705215513488945&amp;postID=2253249971976158571" title="Delete Comment">
+<img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/icon_delete13.gif">
+</a>
+</span>
+</span>
+</dd>
+<dt class="comment-author " id="c6201688240708743743">
+<a name="c6201688240708743743"></a>
+<div class="avatar-image-container vcard"><span dir="ltr"><a href="https://www.blogger.com/profile/00500100811760360585" target="" rel="nofollow" onclick="" class="avatar-hovercard" id="av-6201688240708743743-00500100811760360585"><img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/blank.gif" width="35" height="35" class="delayLoad" style="" longdesc="//lh3.googleusercontent.com/-tiz8XsvJSyk/AAAAAAAAAAI/AAAAAAAADYQ/bl8YMYJJ92I/s35-c/photo.jpg" alt="" title="Darren Gibbard">
+
+<noscript><img src="//lh3.googleusercontent.com/-tiz8XsvJSyk/AAAAAAAAAAI/AAAAAAAADYQ/bl8YMYJJ92I/s35-c/photo.jpg" width="35" height="35" class="photo" alt=""></noscript></a></span></div>
+<a href="https://www.blogger.com/profile/00500100811760360585" rel="nofollow">Darren Gibbard</a>
+said...
+</dt>
+<dd class="comment-body" id="Blog1_cmt-6201688240708743743">
+<p>
+Thanks for sharing this code, it's exactly what I needed :) @Kenny - for updates over the web, consider implementing Basic Auth, and restricting access via network firewalls where possible.<br><br>There seems to be some auth bits in the ESP32WebServer.h code already but I haven't looked into it much:<br>bool authenticate(const char * username, const char * password);<br><br>Failing that, for basic auth, you should be able to read in an 'Authorization' header, and look for 'Basic xxxxxxxx' where 'xxxxxxxxx' is a base64 encoded hash of "username:password" - you can generate this on a Linux shell with something like "echo -n username:password" | base64". That paired with HTTPS would be pretty secure.<br>
+</p>
+</dd>
+<dd class="comment-footer">
+<span class="comment-timestamp">
+<a href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html?showComment=1526290338956#c6201688240708743743" title="comment permalink">
+May 14, 2018 at 2:32 AM
+</a>
+<span class="item-control blog-admin pid-1600997150">
+<a class="comment-delete" href="https://www.blogger.com/delete-comment.g?blogID=7549705215513488945&amp;postID=6201688240708743743" title="Delete Comment">
+<img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/icon_delete13.gif">
+</a>
+</span>
+</span>
+</dd>
+<dt class="comment-author " id="c2290840217222238100">
+<a name="c2290840217222238100"></a>
+<div class="avatar-image-container vcard"><span dir="ltr"><a href="https://www.blogger.com/profile/16233969667713060728" target="" rel="nofollow" onclick="" class="avatar-hovercard" id="av-2290840217222238100-16233969667713060728"><img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/blank.gif" width="35" height="35" class="delayLoad" style="" longdesc="//lh5.googleusercontent.com/-Cnqd6KDRCKM/AAAAAAAAAAI/AAAAAAAAAEM/qWhDe4Zbcio/s35-c/photo.jpg" alt="" title="jan kowalski">
+
+<noscript><img src="//lh5.googleusercontent.com/-Cnqd6KDRCKM/AAAAAAAAAAI/AAAAAAAAAEM/qWhDe4Zbcio/s35-c/photo.jpg" width="35" height="35" class="photo" alt=""></noscript></a></span></div>
+<a href="https://www.blogger.com/profile/16233969667713060728" rel="nofollow">jan kowalski</a>
+said...
+</dt>
+<dd class="comment-body" id="Blog1_cmt-2290840217222238100">
+<p>
+Hello,<br>I have a problem with OTA over http, in my case it works only on internet exprorer 11, can it be caused that my ESP32 is configured as an Access point ?, and there is no access to the internet and there is a problem with accessing the ajax library ?.
+</p>
+</dd>
+<dd class="comment-footer">
+<span class="comment-timestamp">
+<a href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html?showComment=1526971418768#c2290840217222238100" title="comment permalink">
+May 21, 2018 at 11:43 PM
+</a>
+<span class="item-control blog-admin pid-456391846">
+<a class="comment-delete" href="https://www.blogger.com/delete-comment.g?blogID=7549705215513488945&amp;postID=2290840217222238100" title="Delete Comment">
+<img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/icon_delete13.gif">
+</a>
+</span>
+</span>
+</dd>
+<dt class="comment-author blog-author" id="c7363154063367632039">
+<a name="c7363154063367632039"></a>
+<div class="avatar-image-container vcard"><span dir="ltr"><a href="https://www.blogger.com/profile/00459942306964625402" target="" rel="nofollow" onclick="" class="avatar-hovercard" id="av-7363154063367632039-00459942306964625402"><img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/blank.gif" width="35" height="35" class="delayLoad" style="" longdesc="//lh3.googleusercontent.com/-k4dCJVaugDI/AAAAAAAAAAI/AAAAAAAAEAk/Lvv-YTR2jgM/s35-c/photo.jpg" alt="" title="iotsharing dotcom">
+
+<noscript><img src="//lh3.googleusercontent.com/-k4dCJVaugDI/AAAAAAAAAAI/AAAAAAAAEAk/Lvv-YTR2jgM/s35-c/photo.jpg" width="35" height="35" class="photo" alt=""></noscript></a></span></div>
+<a href="https://www.blogger.com/profile/00459942306964625402" rel="nofollow">iotsharing dotcom</a>
+said...
+</dt>
+<dd class="comment-body" id="Blog1_cmt-7363154063367632039">
+<p>
+yes man,<br><br>it used jquery that is loadded from internet.<br>If you want ur case to run. please check the post that i used sdcard to store resources such as images, ... (search sdcard in search box)<br><br>Regards
+</p>
+</dd>
+<dd class="comment-footer">
+<span class="comment-timestamp">
+<a href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html?showComment=1527388733169#c7363154063367632039" title="comment permalink">
+May 26, 2018 at 7:38 PM
+</a>
+<span class="item-control blog-admin pid-1298951643">
+<a class="comment-delete" href="https://www.blogger.com/delete-comment.g?blogID=7549705215513488945&amp;postID=7363154063367632039" title="Delete Comment">
+<img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/icon_delete13.gif">
+</a>
+</span>
+</span>
+</dd>
+<dt class="comment-author " id="c5417432597179417505">
+<a name="c5417432597179417505"></a>
+<div class="avatar-image-container vcard"><span dir="ltr"><a href="https://www.blogger.com/profile/16233969667713060728" target="" rel="nofollow" onclick="" class="avatar-hovercard" id="av-5417432597179417505-16233969667713060728"><img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/blank.gif" width="35" height="35" class="delayLoad" style="" longdesc="//lh5.googleusercontent.com/-Cnqd6KDRCKM/AAAAAAAAAAI/AAAAAAAAAEM/qWhDe4Zbcio/s35-c/photo.jpg" alt="" title="jan kowalski">
+
+<noscript><img src="//lh5.googleusercontent.com/-Cnqd6KDRCKM/AAAAAAAAAAI/AAAAAAAAAEM/qWhDe4Zbcio/s35-c/photo.jpg" width="35" height="35" class="photo" alt=""></noscript></a></span></div>
+<a href="https://www.blogger.com/profile/16233969667713060728" rel="nofollow">jan kowalski</a>
+said...
+</dt>
+<dd class="comment-body" id="Blog1_cmt-5417432597179417505">
+<p>
+Hi, thanks for your reply.<br>I have one more question, because in my device I can't connect SDCARD, but I have a SIM808 modem connected to ESP32 via serial port and I would like to update firmware  directly from the serial port of the modem, is it possible implement firmware update in my hardware by using yours libraries?<br><br>Best Regards
+</p>
+</dd>
+<dd class="comment-footer">
+<span class="comment-timestamp">
+<a href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html?showComment=1529143558374#c5417432597179417505" title="comment permalink">
+June 16, 2018 at 3:05 AM
+</a>
+<span class="item-control blog-admin pid-456391846">
+<a class="comment-delete" href="https://www.blogger.com/delete-comment.g?blogID=7549705215513488945&amp;postID=5417432597179417505" title="Delete Comment">
+<img src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/icon_delete13.gif">
+</a>
+</span>
+</span>
+</dd>
+</dl>
+</div>
+<p class="comment-footer">
+<a href="https://www.blogger.com/comment.g?blogID=7549705215513488945&amp;postID=1891669169864780233" onclick="">Post a Comment</a>
+</p>
+<div id="backlinks-container">
+<div id="Blog1_backlinks-container">
+</div>
+</div>
+</div>
+</div>
+
+        </div></div>
+      
+<!--Can't find substitution for tag [adEnd]-->
+</div>
+<div style="clear: both;"></div>
+<script type="text/javascript">window.___gcfg = {'lang': 'en'};</script>
+</div></div>
+</div><!-- #main -->
+</div><!-- #primary -->
+<div class="widget-areapbt" id="secondarypbt" role="complementary">
+<div class="widget widget_search">
+<form action="http://www.iotsharing.com/search" class="search-form" method="get" role="search">
+<label>
+<span class="screen-reader-textpbt">Search for:</span>
+<input class="search-field" name="q" placeholder="Search" title="Search for:" type="search" value="">
+</label>
+<input class="search-submit" type="submit" value="Search">
+</form>
+</div>
+<div class="sidebarrightpbt section" id="sidebarrightpbt"><div class="widget Text" data-version="1" id="Text1">
+<div class="widget-titlepbt"><h2 class="title">Tutorials</h2></div>
+<div class="widget-content">
+<div data-contents="true"><div class="" data-block="true" data-editor="98d8" data-offset-key="tl9n-0-0"><div class="_1mf _1mj" data-offset-key="3abnv-0-0"><span data-offset-key="3abnv-0-0"><span data-text="true"><a href="http://www.iotsharing.com/2017/08/esp32-tutorials.html">ESP32 tutorials</a><br></span></span></div></div></div><br><div data-contents="true"><div class="" data-block="true" data-editor="98d8" data-offset-key="tl9n-0-0"><div class="_1mf _1mj" data-offset-key="3abnv-0-0"><span data-offset-key="3abnv-0-0"><span data-text="true"><a href="http://www.iotsharing.com/2017/08/esp32-tutorials.html">Arduino ESP32 FreeRTOS tutorials</a><br></span></span></div></div></div><br>
+</div>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=7549705215513488945&amp;widgetType=Text&amp;widgetId=Text1&amp;action=editWidget&amp;sectionId=sidebarrightpbt" onclick="return _WidgetManager._PopupConfig(document.getElementById(&quot;Text1&quot;));" target="configText1" title="Edit">
+<img alt="" height="18" src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/icon18_wrench_allbkg.png" width="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div><div class="widget Label" data-version="1" id="Label1">
+<div class="widget-titlepbt"><h2>Topics</h2></div>
+<div class="widget-content cloud-label-widget-content">
+<span class="label-size label-size-2">
+<a dir="ltr" href="http://www.iotsharing.com/search/label/apache">apache</a>
+<span class="label-count" dir="ltr">(3)</span>
+</span>
+<span class="label-size label-size-3">
+<a dir="ltr" href="http://www.iotsharing.com/search/label/Backend">Backend</a>
+<span class="label-count" dir="ltr">(9)</span>
+</span>
+<span class="label-size label-size-1">
+<a dir="ltr" href="http://www.iotsharing.com/search/label/CAN%20protocol">CAN protocol</a>
+<span class="label-count" dir="ltr">(1)</span>
+</span>
+<span class="label-size label-size-1">
+<a dir="ltr" href="http://www.iotsharing.com/search/label/chatbot">chatbot</a>
+<span class="label-count" dir="ltr">(1)</span>
+</span>
+<span class="label-size label-size-5">
+<a dir="ltr" href="http://www.iotsharing.com/search/label/ESP32">ESP32</a>
+<span class="label-count" dir="ltr">(52)</span>
+</span>
+<span class="label-size label-size-4">
+<a dir="ltr" href="http://www.iotsharing.com/search/label/ESP8266">ESP8266</a>
+<span class="label-count" dir="ltr">(24)</span>
+</span>
+<span class="label-size label-size-1">
+<a dir="ltr" href="http://www.iotsharing.com/search/label/facebook%20messenger">facebook messenger</a>
+<span class="label-count" dir="ltr">(1)</span>
+</span>
+<span class="label-size label-size-2">
+<a dir="ltr" href="http://www.iotsharing.com/search/label/fota">fota</a>
+<span class="label-count" dir="ltr">(3)</span>
+</span>
+<span class="label-size label-size-4">
+<a dir="ltr" href="http://www.iotsharing.com/search/label/FreeRTOS">FreeRTOS</a>
+<span class="label-count" dir="ltr">(18)</span>
+</span>
+<span class="label-size label-size-2">
+<a dir="ltr" href="http://www.iotsharing.com/search/label/http">http</a>
+<span class="label-count" dir="ltr">(3)</span>
+</span>
+<span class="label-size label-size-1">
+<a dir="ltr" href="http://www.iotsharing.com/search/label/ibm%20watson">ibm watson</a>
+<span class="label-count" dir="ltr">(1)</span>
+</span>
+<span class="label-size label-size-1">
+<a dir="ltr" href="http://www.iotsharing.com/search/label/iot%20dashboard">iot dashboard</a>
+<span class="label-count" dir="ltr">(1)</span>
+</span>
+<span class="label-size label-size-1">
+<a dir="ltr" href="http://www.iotsharing.com/search/label/iot%20platform">iot platform</a>
+<span class="label-count" dir="ltr">(1)</span>
+</span>
+<span class="label-size label-size-2">
+<a dir="ltr" href="http://www.iotsharing.com/search/label/mqtt">mqtt</a>
+<span class="label-count" dir="ltr">(3)</span>
+</span>
+<span class="label-size label-size-1">
+<a dir="ltr" href="http://www.iotsharing.com/search/label/node-red">node-red</a>
+<span class="label-count" dir="ltr">(1)</span>
+</span>
+<span class="label-size label-size-3">
+<a dir="ltr" href="http://www.iotsharing.com/search/label/Orange%20Pi">Orange Pi</a>
+<span class="label-count" dir="ltr">(6)</span>
+</span>
+<span class="label-size label-size-1">
+<a dir="ltr" href="http://www.iotsharing.com/search/label/paho%20mqtt">paho mqtt</a>
+<span class="label-count" dir="ltr">(1)</span>
+</span>
+<span class="label-size label-size-3">
+<a dir="ltr" href="http://www.iotsharing.com/search/label/Projects">Projects</a>
+<span class="label-count" dir="ltr">(9)</span>
+</span>
+<span class="label-size label-size-3">
+<a dir="ltr" href="http://www.iotsharing.com/search/label/Raspberry%20Pi">Raspberry Pi</a>
+<span class="label-count" dir="ltr">(7)</span>
+</span>
+<span class="label-size label-size-2">
+<a dir="ltr" href="http://www.iotsharing.com/search/label/sdcard">sdcard</a>
+<span class="label-count" dir="ltr">(2)</span>
+</span>
+<span class="label-size label-size-3">
+<a dir="ltr" href="http://www.iotsharing.com/search/label/Tools">Tools</a>
+<span class="label-count" dir="ltr">(8)</span>
+</span>
+<span class="label-size label-size-1">
+<a dir="ltr" href="http://www.iotsharing.com/search/label/ultrasonic%20sensor">ultrasonic sensor</a>
+<span class="label-count" dir="ltr">(1)</span>
+</span>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=7549705215513488945&amp;widgetType=Label&amp;widgetId=Label1&amp;action=editWidget&amp;sectionId=sidebarrightpbt" onclick="return _WidgetManager._PopupConfig(document.getElementById(&quot;Label1&quot;));" target="configLabel1" title="Edit">
+<img alt="" height="18" src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/icon18_wrench_allbkg.png" width="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div>
+</div><div class="widget HTML" data-version="1" id="HTML1">
+<div class="widget-titlepbt"><h2 class="title">Recent Posts</h2></div>
+<div class="widget-content">
+<iframe src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/page.html" width="340" height="214" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowtransparency="true"></iframe>
+</div>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=7549705215513488945&amp;widgetType=HTML&amp;widgetId=HTML1&amp;action=editWidget&amp;sectionId=sidebarrightpbt" onclick="return _WidgetManager._PopupConfig(document.getElementById(&quot;HTML1&quot;));" target="configHTML1" title="Edit">
+<img alt="" height="18" src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/icon18_wrench_allbkg.png" width="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div><div class="widget HTML" data-version="1" id="HTML3">
+<div class="widget-content">
+<script async="" src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/f(3).txt"></script>
+<!-- iotsharing.com -->
+<ins class="adsbygoogle" style="display: block; height: 594px;" data-ad-client="ca-pub-9452082216626643" data-ad-slot="5896869611" data-ad-format="auto" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display: inline-table; border: none; height: 594px; margin: 0px; padding: 0px; position: relative; visibility: visible; width: 297px; background-color: transparent;"><ins id="aswift_0_anchor" style="display: block; border: none; height: 594px; margin: 0px; padding: 0px; position: relative; visibility: visible; width: 297px; background-color: transparent; overflow: hidden;"><iframe width="297" height="600" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;width:297px;height:600px;" src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/saved_resource(1).html"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=7549705215513488945&amp;widgetType=HTML&amp;widgetId=HTML3&amp;action=editWidget&amp;sectionId=sidebarrightpbt" onclick="return _WidgetManager._PopupConfig(document.getElementById(&quot;HTML3&quot;));" target="configHTML3" title="Edit">
+<img alt="" height="18" src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/icon18_wrench_allbkg.png" width="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div><div class="widget PopularPosts" data-version="1" id="PopularPosts1">
+<div class="widget-titlepbt"><h2>Popular Posts</h2></div>
+<div class="widget-content popular-posts">
+<ul>
+<li>
+<a href="http://www.iotsharing.com/2017/11/firmware-update-ota-for-esp32-using-http.html">Demo 35: firmware update OTA for ESP32 directly using HTTP</a>
+</li>
+<li>
+<a href="http://www.iotsharing.com/2017/05/how-to-use-mqtt-to-build-smart-home-arduino-esp32.html">Demo 14: How to use MQTT and Arduino ESP32 to build a simple Smart home system</a>
+</li>
+<li>
+<a href="http://www.iotsharing.com/2017/09/how-to-use-arduino-esp32-can-interface.html">Demo 31: How to use Arduino ESP32 CAN interface</a>
+</li>
+<li>
+<a href="http://www.iotsharing.com/2017/08/esp32-tutorials.html">Arduino ESP32 tutorials</a>
+</li>
+<li>
+<a href="http://www.iotsharing.com/2017/05/tcp-udp-ip-with-esp32.html">Demo 8: How to use TCP/IP with Arduino ESP32</a>
+</li>
+<li>
+<a href="http://www.iotsharing.com/2017/07/how-to-use-arduino-esp32-i2s-to-play-wav-music-from-sdcard.html">Demo 26: How to use Arduino ESP32 I2S (external DAC and built-in DAC) to play wav music file from sdcard</a>
+</li>
+<li>
+<a href="http://www.iotsharing.com/2017/05/how-to-turn-esp32-into-web-server.html">Demo 12: How to turn the Arduino ESP32 into a Web Server</a>
+</li>
+<li>
+<a href="http://www.iotsharing.com/2017/05/how-to-use-smartconfig-on-esp32.html">Demo 11: How to use SmartConfig on Arduino ESP32</a>
+</li>
+<li>
+<a href="http://www.iotsharing.com/2017/08/how-to-use-esp32-mqtts-with-mqtts-mosquitto-broker-tls-ssl.html">Demo 30: How to use Arduino ESP32 MQTTS with MQTTS Mosquitto broker (TLS/SSL)</a>
+</li>
+<li>
+<a href="http://www.iotsharing.com/2017/05/how-to-use-arduino-esp32-to-store-data-to-sdcard.html">Demo 7: How to use Arduino ESP32 to store data to sdcard</a>
+</li>
+</ul>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=7549705215513488945&amp;widgetType=PopularPosts&amp;widgetId=PopularPosts1&amp;action=editWidget&amp;sectionId=sidebarrightpbt" onclick="return _WidgetManager._PopupConfig(document.getElementById(&quot;PopularPosts1&quot;));" target="configPopularPosts1" title="Edit">
+<img alt="" height="18" src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/icon18_wrench_allbkg.png" width="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div>
+</div></div>
+</div><!-- #secondary -->
+</div><!-- #content -->
+<footer class="site-footerpbt" id="colophonpbt" role="contentinfo">
+<div class="site-infopbt smallpartpbt">
+<!-- You should not edit or remove credits without our permission: premiumbloggertemplates.com -->
+Copyright © <script type="text/javascript">var creditsyear = new Date();document.write(creditsyear.getFullYear());</script>2018
+<a href="http://www.iotsharing.com/">IoT Sharing</a> | Powered by <a href="http://www.blogger.com/">Blogger</a><br>Design by <a href="http://crestaproject.com/" target="_blank">CrestaProject</a> | Blogger Theme by <a href="http://www.bloggertipandtrick.net/" target="_blank" title="Blogging Tutorials">Lasantha</a> - <a href="http://www.premiumbloggertemplates.com/" target="_blank" title="Free Blogger Templates">PremiumBloggerTemplates.com</a> | Distributed By <a href="http://gooyaabitemplates.com/" rel="dofollow" target="_blank">Gooyaabi Templates</a>
+</div><!-- .site-info -->
+</footer><!-- #colophon -->
+</div><!-- #page -->
+<a href="http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html#top" id="totoppbt"><i class="fa fa-angle-up fa-lg"></i></a>
+<script type="text/javascript">
+//<![CDATA[
+
+(function($) {
+	"use strict";
+	
+	$(document).ready(function() {
+	
+		/*-----------------------------------------------------------------------------------*/
+		/*  Home icon in main menu
+		/*-----------------------------------------------------------------------------------*/ 
+			$('.main-navigationpbt .menu-item-home a').prepend('<i class="fa fa-lg fa-home spacerightpbt"></i>');
+			
+		$(".widget-areapbt .widget h2").wrap("<div class='widget-titlepbt'></div>");
+			
+		/*-----------------------------------------------------------------------------------*/
+		/*  Top Search Button
+		/*-----------------------------------------------------------------------------------*/ 
+		$('.top-search').click(function() {
+			$('.topsearchformpbt').slideToggle('fast');
+			$(this).toggleClass("active");
+			return false;
+		});
+			
+		/*-----------------------------------------------------------------------------------*/
+		/*  Detect Mobile Browser
+		/*-----------------------------------------------------------------------------------*/ 
+		if ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+		} else {
+		
+			/*-----------------------------------------------------------------------------------*/
+			/*  If menu has submenu
+			/*-----------------------------------------------------------------------------------*/ 
+				$('.main-navigationpbt').find("li").each(function(){
+					if($(this).children("ul").length > 0){
+						$(this).append("<span class='indicator'></span>");
+					}
+				});
+			
+			/*-----------------------------------------------------------------------------------*/
+			/*  Scroll To Top
+			/*-----------------------------------------------------------------------------------*/ 
+				$("#totoppbt").scrollToTop();
+		
+		}
+			
+	});
+	
+})(jQuery);
+
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+
+/**
+ * navigation.js
+ *
+ * Handles toggling the navigation menu for small screens.
+ */
+( function() {
+	var container, button, menu;
+
+	container = document.getElementById( 'site-navigationpbt' );
+	if ( ! container )
+		return;
+
+	button = container.getElementsByTagName( 'button' )[0];
+	if ( 'undefined' === typeof button )
+		return;
+
+	menu = container.getElementsByTagName( 'ul' )[0];
+
+	// Hide menu toggle button if menu is empty and return early.
+	if ( 'undefined' === typeof menu ) {
+		button.style.display = 'none';
+		return;
+	}
+
+	if ( -1 === menu.className.indexOf( 'nav-menu' ) )
+		menu.className += ' nav-menu';
+
+	button.onclick = function() {
+		if ( -1 !== container.className.indexOf( 'toggled' ) )
+			container.className = container.className.replace( ' toggled', '' );
+		else
+			container.className += ' toggled';
+	};
+} )();
+
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+
+// SmoothScroll for websites v1.2.1
+// Licensed under the terms of the MIT license.
+
+// People involved
+//  - Balazs Galambosi (maintainer)  
+//  - Michael Herf     (Pulse Algorithm)
+
+!function(){function e(){var e=!1;e&&c("keydown",r),v.keyboardSupport&&!e&&u("keydown",r)}function t(){if(document.body){var t=document.body,o=document.documentElement,n=window.innerHeight,r=t.scrollHeight;if(S=document.compatMode.indexOf("CSS")>=0?o:t,w=t,e(),x=!0,top!=self)y=!0;else if(r>n&&(t.offsetHeight<=n||o.offsetHeight<=n)){var a=!1,i=function(){a||o.scrollHeight==document.height||(a=!0,setTimeout(function(){o.style.height=document.height+"px",a=!1},500))};if(o.style.height="auto",setTimeout(i,10),S.offsetHeight<=n){var l=document.createElement("div");l.style.clear="both",t.appendChild(l)}}v.fixedBackground||b||(t.style.backgroundAttachment="scroll",o.style.backgroundAttachment="scroll")}}function o(e,t,o,n){if(n||(n=1e3),d(t,o),1!=v.accelerationMax){var r=+new Date,a=r-C;if(a<v.accelerationDelta){var i=(1+30/a)/2;i>1&&(i=Math.min(i,v.accelerationMax),t*=i,o*=i)}C=+new Date}if(M.push({x:t,y:o,lastX:0>t?.99:-.99,lastY:0>o?.99:-.99,start:+new Date}),!T){var l=e===document.body,u=function(){for(var r=+new Date,a=0,i=0,c=0;c<M.length;c++){var s=M[c],d=r-s.start,f=d>=v.animationTime,h=f?1:d/v.animationTime;v.pulseAlgorithm&&(h=p(h));var m=s.x*h-s.lastX>>0,w=s.y*h-s.lastY>>0;a+=m,i+=w,s.lastX+=m,s.lastY+=w,f&&(M.splice(c,1),c--)}l?window.scrollBy(a,i):(a&&(e.scrollLeft+=a),i&&(e.scrollTop+=i)),t||o||(M=[]),M.length?E(u,e,n/v.frameRate+1):T=!1};E(u,e,0),T=!0}}function n(e){x||t();var n=e.target,r=l(n);if(!r||e.defaultPrevented||s(w,"embed")||s(n,"embed")&&/\.pdf/i.test(n.src))return!0;var a=e.wheelDeltaX||0,i=e.wheelDeltaY||0;return a||i||(i=e.wheelDelta||0),!v.touchpadSupport&&f(i)?!0:(Math.abs(a)>1.2&&(a*=v.stepSize/120),Math.abs(i)>1.2&&(i*=v.stepSize/120),o(r,-a,-i),void e.preventDefault())}function r(e){var t=e.target,n=e.ctrlKey||e.altKey||e.metaKey||e.shiftKey&&e.keyCode!==H.spacebar;if(/input|textarea|select|embed/i.test(t.nodeName)||t.isContentEditable||e.defaultPrevented||n)return!0;if(s(t,"button")&&e.keyCode===H.spacebar)return!0;var r,a=0,i=0,u=l(w),c=u.clientHeight;switch(u==document.body&&(c=window.innerHeight),e.keyCode){case H.up:i=-v.arrowScroll;break;case H.down:i=v.arrowScroll;break;case H.spacebar:r=e.shiftKey?1:-1,i=-r*c*.9;break;case H.pageup:i=.9*-c;break;case H.pagedown:i=.9*c;break;case H.home:i=-u.scrollTop;break;case H.end:var d=u.scrollHeight-u.scrollTop-c;i=d>0?d+10:0;break;case H.left:a=-v.arrowScroll;break;case H.right:a=v.arrowScroll;break;default:return!0}o(u,a,i),e.preventDefault()}function a(e){w=e.target}function i(e,t){for(var o=e.length;o--;)z[N(e[o])]=t;return t}function l(e){var t=[],o=S.scrollHeight;do{var n=z[N(e)];if(n)return i(t,n);if(t.push(e),o===e.scrollHeight){if(!y||S.clientHeight+10<o)return i(t,document.body)}else if(e.clientHeight+10<e.scrollHeight&&(overflow=getComputedStyle(e,"").getPropertyValue("overflow-y"),"scroll"===overflow||"auto"===overflow))return i(t,e)}while(e=e.parentNode)}function u(e,t,o){window.addEventListener(e,t,o||!1)}function c(e,t,o){window.removeEventListener(e,t,o||!1)}function s(e,t){return(e.nodeName||"").toLowerCase()===t.toLowerCase()}function d(e,t){e=e>0?1:-1,t=t>0?1:-1,(k.x!==e||k.y!==t)&&(k.x=e,k.y=t,M=[],C=0)}function f(e){if(e){e=Math.abs(e),D.push(e),D.shift(),clearTimeout(A);var t=D[0]==D[1]&&D[1]==D[2],o=h(D[0],120)&&h(D[1],120)&&h(D[2],120);return!(t||o)}}function h(e,t){return Math.floor(e/t)==e/t}function m(e){var t,o,n;return e*=v.pulseScale,1>e?t=e-(1-Math.exp(-e)):(o=Math.exp(-1),e-=1,n=1-Math.exp(-e),t=o+n*(1-o)),t*v.pulseNormalize}function p(e){return e>=1?1:0>=e?0:(1==v.pulseNormalize&&(v.pulseNormalize/=m(1)),m(e))}var w,g={frameRate:150,animationTime:800,stepSize:120,pulseAlgorithm:!0,pulseScale:8,pulseNormalize:1,accelerationDelta:20,accelerationMax:1,keyboardSupport:!0,arrowScroll:50,touchpadSupport:!0,fixedBackground:!0,excluded:""},v=g,b=!1,y=!1,k={x:0,y:0},x=!1,S=document.documentElement,D=[120,120,120],H={left:37,up:38,right:39,down:40,spacebar:32,pageup:33,pagedown:34,end:35,home:36},v=g,M=[],T=!1,C=+new Date,z={};setInterval(function(){z={}},1e4);var A,N=function(){var e=0;return function(t){return t.uniqueID||(t.uniqueID=e++)}}(),E=function(){return window.requestAnimationFrame||window.webkitRequestAnimationFrame||function(e,t,o){window.setTimeout(e,o||1e3/60)}}(),K=/chrome/i.test(window.navigator.userAgent),L="onmousewheel"in document;L&&K&&(u("mousedown",a),u("mousewheel",n),u("load",t))}();
+
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+
+(function(a){a.fn.scrollToTop=function(c){var d={speed:1000};c&&a.extend(d,{speed:c});return this.each(function(){var b=a(this);a(window).scroll(function(){700<a(this).scrollTop()?b.fadeIn():b.fadeOut()});b.click(function(b){b.preventDefault();a("body, html").animate({scrollTop:0},d.speed)})})}})(jQuery);
+
+//]]>
+</script>
+
+<script type="text/javascript" src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/761964075-widgets.js.tải xuống"></script>
+<script type="text/javascript">
+window['__wavt'] = 'AOuZoY4PRpaQvSi7h6k5wJLi80-vogF66g:1534135876488';_WidgetManager._Init('//www.blogger.com/rearrange?blogID\x3d7549705215513488945','//www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html','7549705215513488945');
+_WidgetManager._SetDataContext([{'name': 'blog', 'data': {'blogId': '7549705215513488945', 'title': 'IoT Sharing', 'url': 'http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html', 'canonicalUrl': 'http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html', 'homepageUrl': 'http://www.iotsharing.com/', 'searchUrl': 'http://www.iotsharing.com/search', 'canonicalHomepageUrl': 'http://www.iotsharing.com/', 'blogspotFaviconUrl': 'http://www.iotsharing.com/favicon.ico', 'bloggerUrl': 'https://www.blogger.com', 'hasCustomDomain': true, 'httpsEnabled': false, 'enabledCommentProfileImages': true, 'gPlusViewType': 'FILTERED_POSTMOD', 'adultContent': false, 'analyticsAccountNumber': '', 'encoding': 'UTF-8', 'locale': 'en', 'localeUnderscoreDelimited': 'en', 'languageDirection': 'ltr', 'isPrivate': false, 'isMobile': false, 'isMobileRequest': false, 'mobileClass': '', 'isPrivateBlog': false, 'feedLinks': '\x3clink rel\x3d\x22alternate\x22 type\x3d\x22application/atom+xml\x22 title\x3d\x22IoT Sharing - Atom\x22 href\x3d\x22http://www.iotsharing.com/feeds/posts/default\x22 /\x3e\n\x3clink rel\x3d\x22alternate\x22 type\x3d\x22application/rss+xml\x22 title\x3d\x22IoT Sharing - RSS\x22 href\x3d\x22http://www.iotsharing.com/feeds/posts/default?alt\x3drss\x22 /\x3e\n\x3clink rel\x3d\x22service.post\x22 type\x3d\x22application/atom+xml\x22 title\x3d\x22IoT Sharing - Atom\x22 href\x3d\x22https://www.blogger.com/feeds/7549705215513488945/posts/default\x22 /\x3e\n\n\x3clink rel\x3d\x22alternate\x22 type\x3d\x22application/atom+xml\x22 title\x3d\x22IoT Sharing - Atom\x22 href\x3d\x22http://www.iotsharing.com/feeds/1891669169864780233/comments/default\x22 /\x3e\n', 'meTag': '', 'adsenseClientId': 'ca-pub-1490514015529571', 'adsenseHostId': 'ca-host-pub-1556223355139109', 'adsenseHasAds': false, 'view': '', 'dynamicViewsCommentsSrc': '//www.blogblog.com/dynamicviews/4224c15c4e7c9321/js/comments.js', 'dynamicViewsScriptSrc': '//www.blogblog.com/dynamicviews/cd503876782563b4', 'plusOneApiSrc': 'https://apis.google.com/js/plusone.js', 'sharing': {'platforms': [{'name': 'Get link', 'key': 'link', 'shareMessage': 'Get link', 'target': ''}, {'name': 'Facebook', 'key': 'facebook', 'shareMessage': 'Share to Facebook', 'target': 'facebook'}, {'name': 'BlogThis!', 'key': 'blogThis', 'shareMessage': 'BlogThis!', 'target': 'blog'}, {'name': 'Twitter', 'key': 'twitter', 'shareMessage': 'Share to Twitter', 'target': 'twitter'}, {'name': 'Pinterest', 'key': 'pinterest', 'shareMessage': 'Share to Pinterest', 'target': 'pinterest'}, {'name': 'Google+', 'key': 'googlePlus', 'shareMessage': 'Share to Google+', 'target': 'googleplus'}, {'name': 'Email', 'key': 'email', 'shareMessage': 'Email', 'target': 'email'}], 'googlePlusShareButtonWidth': 300, 'googlePlusBootstrap': '\x3cscript type\x3d\x22text/javascript\x22\x3ewindow.___gcfg \x3d {\x27lang\x27: \x27en\x27};\x3c/script\x3e'}, 'hasCustomJumpLinkMessage': false, 'jumpLinkMessage': 'Read more', 'pageType': 'item', 'postId': '1891669169864780233', 'postImageThumbnailUrl': 'https://4.bp.blogspot.com/-VqeyOEv438M/WhQitKb5A_I/AAAAAAAAFs8/6LhPYW9uk6MQNOab47wil49GjO9vXDvIwCLcBGAs/s72-c/esp32wota.png', 'postImageUrl': 'https://4.bp.blogspot.com/-VqeyOEv438M/WhQitKb5A_I/AAAAAAAAFs8/6LhPYW9uk6MQNOab47wil49GjO9vXDvIwCLcBGAs/s400/esp32wota.png', 'pageName': 'Demo 36: Firmware update OTA via ESP Http Web Server', 'pageTitle': 'IoT Sharing: Demo 36: Firmware update OTA via ESP Http Web Server', 'metaDescription': ''}}, {'name': 'features', 'data': {'cmt_anon_warn': 'false', 'lazy_images': 'false', 'poll_static': 'true', 'sharing_get_link_dialog': 'true', 'sharing_native': 'false'}}, {'name': 'messages', 'data': {'edit': 'Edit', 'linkCopiedToClipboard': 'Link copied to clipboard!', 'ok': 'Ok', 'postLink': 'Post Link'}}, {'name': 'template', 'data': {'name': 'custom', 'localizedName': 'Custom', 'isResponsive': false, 'isAlternateRendering': false, 'isCustom': true}}, {'name': 'view', 'data': {'classic': {'name': 'classic', 'url': '?view\x3dclassic'}, 'flipcard': {'name': 'flipcard', 'url': '?view\x3dflipcard'}, 'magazine': {'name': 'magazine', 'url': '?view\x3dmagazine'}, 'mosaic': {'name': 'mosaic', 'url': '?view\x3dmosaic'}, 'sidebar': {'name': 'sidebar', 'url': '?view\x3dsidebar'}, 'snapshot': {'name': 'snapshot', 'url': '?view\x3dsnapshot'}, 'timeslide': {'name': 'timeslide', 'url': '?view\x3dtimeslide'}, 'isMobile': false, 'title': 'Demo 36: Firmware update OTA via ESP Http Web Server', 'description': 'This is a place where I can share my knowledge of: IoT, machine learning self learning and other interetsing topics.', 'featuredImage': 'https://4.bp.blogspot.com/-VqeyOEv438M/WhQitKb5A_I/AAAAAAAAFs8/6LhPYW9uk6MQNOab47wil49GjO9vXDvIwCLcBGAs/s400/esp32wota.png', 'url': 'http://www.iotsharing.com/2017/11/firmware-update-ota-via-esp-http-webserver.html', 'type': 'item', 'isSingleItem': true, 'isMultipleItems': false, 'isError': false, 'isPage': false, 'isPost': true, 'isHomepage': false, 'isArchive': false, 'isLabelSearch': false, 'postId': 1891669169864780233}}]);
+_WidgetManager._RegisterWidget('_HeaderView', new _WidgetInfo('Header1', 'headersec', null, document.getElementById('Header1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_BlogView', new _WidgetInfo('Blog1', 'mainblogsec', null, document.getElementById('Blog1'), {'cmtInteractionsEnabled': false, 'useNgc': false, 'lightboxEnabled': true, 'lightboxModuleUrl': 'https://www.blogger.com/static/v1/jsbin/1117533592-lbx.js', 'lightboxCssUrl': 'https://www.blogger.com/static/v1/v-css/368954415-lightbox_bundle.css'}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_TextView', new _WidgetInfo('Text1', 'sidebarrightpbt', null, document.getElementById('Text1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_LabelView', new _WidgetInfo('Label1', 'sidebarrightpbt', null, document.getElementById('Label1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML1', 'sidebarrightpbt', null, document.getElementById('HTML1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML3', 'sidebarrightpbt', null, document.getElementById('HTML3'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_PopularPostsView', new _WidgetInfo('PopularPosts1', 'sidebarrightpbt', null, document.getElementById('PopularPosts1'), {}, 'displayModeFull'));
+</script>
+
+<iframe id="google_osd_static_frame_2786154346418" name="google_osd_static_frame" style="display: none; width: 0px; height: 0px;" src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/saved_resource(2).html"></iframe><link type="text/css" rel="stylesheet" href="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/368954415-lightbox_bundle.css"><script type="text/javascript" src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/1117533592-lbx.js.tải xuống"></script></body><iframe id="google_esf" name="google_esf" src="./Demo 36_ Firmware update OTA via ESP Http Web Server _ IoT Sharing_files/zrt_lookup.html" style="display:none" data-ad-client="ca-pub-9452082216626643"></iframe></html>
