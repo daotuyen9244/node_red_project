@@ -11,3 +11,7 @@ https://github.com/espressif/ESP8266_AT
 https://www.espressif.com/sites/default/files/documentation/4b-esp8266_at_command_examples_en.pdf
 
 https://github.com/RoanBrand/STM32SerialToTCPBridgeClient
+
+---------------------------------------------
+https://www.waveshare.com/wiki/File:W25QXX_DataFlash_Board-Demo.7z
+https://www.waveshare.com/wiki/W25QXX_DataFlash_Board	
