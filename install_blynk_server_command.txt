@@ -1,0 +1,21 @@
+sudo apt-add-repository ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get install oracle-java9-installer
+sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080
+sudo iptables -t nat -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-port 9443
+sudo apt-get install libxrender1
+
+sudo apt-get update
+sudo apt-get install fail2ban
+sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+
+sudo apt-add-repository ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get install oracle-java9-installer
+
+wget "https://github.com/blynkkk/blynk-server/releases/download/v0.29.2/server-0.29.2.jar"
+
+java -jar server-0.29.2.jar -dataFolder /path (change path to your path)
+
+Guide
+https://github.com/blynkkk/blynk-server#quick-local-server-setup

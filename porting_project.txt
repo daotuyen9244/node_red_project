@@ -49,3 +49,10 @@ https://github.com/onesk/olimexino_can
 https://github.com/nazzak/CAN_Bus_STM32F4Discovery
 
 https://github.com/mocona05/CAN-BUS-TO-USB-UART-STM32F042-
+
+-------------------------
+git install
+https://about.gitlab.com/installation/#ubuntu
+https://docs.gitlab.com/omnibus/settings/configuration.html#configuring-the-external-url-for-gitlab
+
+-------------------------
