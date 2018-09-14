@@ -48,6 +48,8 @@ https://github.com/madprogrammer/stm32-can-bootloader
 https://github.com/onesk/olimexino_can
 https://github.com/nazzak/CAN_Bus_STM32F4Discovery
 
+
+
 https://github.com/mocona05/CAN-BUS-TO-USB-UART-STM32F042-
 
 -------------------------
@@ -58,3 +60,23 @@ https://docs.gitlab.com/omnibus/settings/configuration.html#configuring-the-exte
 -------------------------
 MQTT
 https://internetofhomethings.com/homethings/?p=1756
+
+---------------------------------------
+Install node red
+https://www.rosehosting.com/blog/install-npm-on-ubuntu-16-04/
+https://github.com/nodesource/distributions
+https://hocarm.org/node-red-co-ban/
+https://hocarm.org/node-red-mqtt-va-esp8266/
+https://gruntjs.com/getting-started
+http://www.steves-internet-guide.com/securing-node-red-ssl/
+https://hoctapit.com/cai-dat-va-su-dung-pm2-de-quan-ly-ung-dung-nodejs/
+https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
+https://stackoverflow.com/questions/40605312/start-mongod-service-at-system-startup
+https://diyprojects.io/node-red-installation-configuration-ubuntu-16-04-lts/#.W5suKegzbIW 
+https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-16-04
+
+
+---------------------
+https://hitachiconsulting.percipio.com/login.html?state=/channels/72f6a121-2c24-11e7-83d1-dba0327abefc#/
+tuyenqd@gcs-vn.com
+WelcomeHCC18
