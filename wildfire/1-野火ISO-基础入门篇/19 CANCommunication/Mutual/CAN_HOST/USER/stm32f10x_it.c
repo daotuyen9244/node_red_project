@@ -148,18 +148,18 @@ void SysTick_Handler(void)
 void USB_LP_CAN1_RX0_IRQHandler(void)
 {
  
- /*从邮箱中读出报文*/
+ /*Read the message from the mailbox*/
   CAN_Receive(CAN1, CAN_FIFO0, &RxMessage);
 
-  /* 比较ID和数据是否为0x1314及DCBA */ 
+  /* Compare ID and data to 0x1314 and DCBA */ 
   if((RxMessage.ExtId==0x1314) && (RxMessage.IDE==CAN_ID_EXT)
      && (RxMessage.DLC==2) && ((RxMessage.Data[1]|RxMessage.Data[0]<<8)==0xDCBA))
   {
-    flag = 0; 					       //接收成功  
+    flag = 0; 					       //Successful reception  
   }
   else
   {
-    flag = 0xff; 					   //接收失败
+    flag = 0xff; 					   //Receive failure
   }
 }
 

@@ -148,16 +148,16 @@ void USB_LP_CAN1_RX0_IRQHandler(void)
 {
    
   CAN_Receive(CAN1, CAN_FIFO0, &RxMessage);
-  /* 比较是否是发送的数据和ID */ 
+  /* Compare whether it is the data and ID sent */ 
   if((RxMessage.ExtId==0x1314) && (RxMessage.IDE==CAN_ID_EXT)
      && (RxMessage.DLC==2) && ((RxMessage.Data[1]|RxMessage.Data[0]<<8)==0xABCD))
   {
-    flag = 0; 					       //接收成功
+    flag = 0; 					       //Successful reception
 
   }
   else
   {
-    flag = 0xff; 					   //接收失败
+    flag = 0xff; 					   //Receive failure
   }
 }
 /**
