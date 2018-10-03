@@ -1,26 +1,27 @@
+
 /**
-  ******************************************************************************
-  * @file    bsp_usart1.c
-  * @author  fire
+  ************************************************** ****************************
+  * @file bsp_usart1.c
+  * @author fire
   * @version V1.0
-  * @date    2013-xx-xx
-  * @brief   重现c库printf函数到usart端口
-  ******************************************************************************
+  * @date 2013-xx-xx
+  * @brief reproduces the c library printf function to the usart port
+  ************************************************** ****************************
   * @attention
   *
-  * 实验平台:野火 iSO STM32 开发板 
-  * 论坛    :http://www.chuxue123.com
-  * 淘宝    :http://firestm32.taobao.com
+  * Experimental platform: wildfire iSO STM32 development board
+  * Forum: http://www.chuxue123.com
+  * Taobao: http://firestm32.taobao.com
   *
-  ******************************************************************************
-  */ 
-  
+  ************************************************** ****************************
+  */
 #include "bsp_usart1.h"
 
- /**
-  * @brief  USART1 GPIO 配置,工作模式配置。115200 8-N-1
-  * @param  无
-  * @retval 无
+
+/**
+  * @brief USART1 GPIO configuration, working mode configuration. 115200 8-N-1
+  * @param no
+  * @retval none
   */
 void USART1_Config(void)
 {
@@ -52,7 +53,7 @@ void USART1_Config(void)
 		USART_Cmd(USART1, ENABLE);
 }
 
-///重定向c库函数printf到USART1
+///Redirect c library function printf to USART1
 int fputc(int ch, FILE *f)
 {
 		/* 发送一个字节数据到USART1 */

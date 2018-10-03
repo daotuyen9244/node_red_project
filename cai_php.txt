@@ -1,0 +1,9 @@
+https://www.codehub.vn/Cai-Dat-LAMP-tren-Ubuntu-18-04
+https://devanswers.co/installing-apache-mysql-php-lamp-stack-ubuntu-18-04/
+https://askubuntu.com/questions/55280/phpmyadmin-is-not-working-after-i-installed-it/794206
+
+#14
+sudo ln -s /etc/phpmyadmin/apache.conf /etc/apache2/conf-available/phpmyadmin.conf
+sudo a2enconf phpmyadmin
+sudo service apache2 reload
+#

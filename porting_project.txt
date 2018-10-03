@@ -80,3 +80,9 @@ https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-
 Cab stm32 
 https://www.elektronik-keller.de/index.php/projekte/stm32/29-stm32cubemx-stm32-can
 http://www.waveshare.net/study/article-648-1.html
+/// node -red dashboar
+
+https://diyfuturism.com/index.php/category/node-red/
+
+--------------- off port gitlab
+https://serverfault.com/questions/585528/set-gitlab-external-web-port-number
