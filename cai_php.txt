@@ -7,3 +7,9 @@ sudo ln -s /etc/phpmyadmin/apache.conf /etc/apache2/conf-available/phpmyadmin.co
 sudo a2enconf phpmyadmin
 sudo service apache2 reload
 #
+
+# install workpress
+https://www.codehub.vn/Wordpress/Cai-Dat-Wordpress-Tren-Ubuntu
+https://www.thuthuatweb.net/wordpress/cach-chen-va-thuc-thi-code-php-trong-wordpress-postspages.html
+https://developers.sap.com/netherlands/tutorials/hxe-gcp-setup-putty-winscp-windows.html
+https://www.onepagezen.com/manage-wordpress-files-on-google-cloud-platform/
